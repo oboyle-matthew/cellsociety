@@ -1,3 +1,4 @@
-# cellsociety 
+# Specs for an game init page
 
-Put your example and test XML files here.
+- game
+  - 
