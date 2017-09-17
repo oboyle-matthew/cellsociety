@@ -9,6 +9,10 @@ local.properties
 
 # Generic Android ignores #
 ###########################
+.vscode
+
+# Generic Android ignores #
+###########################
 bin/
 target
 gen/
