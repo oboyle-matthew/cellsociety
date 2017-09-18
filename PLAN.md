@@ -1,5 +1,33 @@
-
 #**Team 15**
+
+Methods:
+
+createGrid
+initializeGrid
+checkNeighbors
+start
+stop
+adjustSpeed (for increasing and decreasing)
+readFile
+displayText
+newConfiguration
+
+
+
+
+
+
+
+Classes:
+Grid
+Cell (updateCell, getinfo methods, changeSize)
+Class for each type of simulation
+1. Segregation
+2. Predator-prey
+3. Fire
+4. Game of life
+Main class
+
 
 Freedom - don't just allow anyone to change number of cells once it's initialized 
 Controls class that handles parameters Eg. type of cell, number of empty cells, and similar percentage BUT shouldn't be able to change any of these within each step.
