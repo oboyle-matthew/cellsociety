@@ -8,7 +8,7 @@ In order to facilitate a certain level of program-user interaction, the program 
 of the simulation depending on the degree of freedom assigned for them. In our program, we will define which variables will be changeable (i.e. the color of the cells, etc) 
 as well as the pre-determined variables that the user won't have the option to change (i.e. the initial starting configuration of the cells). 
 
-In the course of progamming the simulation of this cellular interraction, we hope to appreciate Stephen Walfram's conviction and belief in CA (Cellular Automata); the 
+In the course of progamming the simulation of this cellular interraction, we hope to appreciate Stephen Walfram's conviction and belief in CA (Cellular Automata). The 
 program will be powerful tool that will allow researchers an unlimited opportunity to study the behavioral interaction of the cells using this simulation. This is the 
 power of CA (Cellular Automata), or any scientific simulation for that matter, that Walfram believed has the power to move scientific research and discovery forward.
 
