@@ -100,3 +100,10 @@ We also debated about whether it’s possible to have a playback, which let the 
 In addition, we also discussed what kind of user input we would take after the whole process had started. We agreed that we could not let the users to change the dimension of the grid and cells. However, we were considering that we could let the user pause the process, change the speed of process taking place, and move back to any moment that’s passed by.
 
 ## Team Responsibilities
+Peilin will learn how XML works and how we can use it for the game.
+
+Matt will be the main person working on the user interface, including all buttons, keyboard input. 
+
+We will work on the back-end coding part all together, in which Ramil will take the lead, and assign the other two team members tasks, potentially using “Issue” function on Gitlab.
+
+At this point, we don’t want to assign very specific tasks for each person yet, because none of us is 100% sure what we are going to do, and many aspects of this game still need to be figured out togtehr.
