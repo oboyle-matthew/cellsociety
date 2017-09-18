@@ -12,9 +12,6 @@ In the course of progamming the simulation of this cellular interraction, we hop
 program will be powerful tool that will allow researchers an unlimited opportunity to study the behavioral interaction of the cells using this simulation. This is the 
 power of CA (Cellular Automata), or any scientific simulation for that matter, that Walfram believed has the power to move scientific research and discovery forward.
 
-
-## Introduction
-
 ## Overview
 The CellSociety class manages all the interactions between all the components.
 It performs computations, calculates grid's state and keeps history of all interactions
