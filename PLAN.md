@@ -76,3 +76,9 @@ In your design document, include the following sections:
 ## Overview
 
 ## User Interface
+
+## Design Details
+
+## Design Considerations
+
+## Team Responsibilities

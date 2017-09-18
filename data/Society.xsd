@@ -59,7 +59,7 @@
                     </xs:annotation>
                 </xs:element>
 
-                <!--Cell definition-->
+                <!--util.Cell definition-->
 
                 <xs:element name="cells">
                     <xs:annotation>
@@ -158,7 +158,7 @@
                     </xs:complexType>
                 </xs:element>
 
-                <!--State definition-->
+                <!--util.State definition-->
 
                 <xs:element name="state">
                     <xs:complexType>
