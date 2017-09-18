@@ -79,6 +79,12 @@ In your design document, include the following sections:
 
 ## Design Details
 
-## Design Considerations
+## Design Consideration
+
+We first considered the degree of freedom that we want to give to users. More precisely, we were thinking about what aspects of the cell society game should be determined by user input. There were several aspects: grid dimension, number of cells, cell dimension, percentage of each initial state. We also thought about whether we should pre-determine the shape and size of the cells, can they be irregular in shape, of variant sizes? 
+
+We also debated about whether it’s possible to have a playback, which let the game store it’s previous state so that user could get back at those later easily and quickly. One of us was concerned about whether it would take up much space.
+
+In addition, we also discussed what kind of user input we would take after the whole process had started. We agreed that we could not let the users to change the dimension of the grid and cells. However, we were considering that we could let the user pause the process, change the speed of process taking place, and move back to any moment that’s passed by.
 
 ## Team Responsibilities
