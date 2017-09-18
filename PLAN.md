@@ -95,6 +95,7 @@ listens to all the inputs and allows user to interact with the simulation
 Cell performs computations and updates it's own state
 
 Actions define actions any type of cell takes
+![Scheme](Scheme.png)
 ## User Interface
 The game will start with a screen displaying a welcome message, and then four buttons where the user can choose which type of simulation they would like to run. This welcome text will have to be read from a resource file as it can't be hard-coded as stated in the specification. Once one of these buttons is clicked on the screen will change into one asking for user input first of how many rows and then how many columns the user would like for the simulation. We decided that we needed a lower bound for this program so that it could run effectively. Obviously negative numbers would be impossible for the number of rows and number of columns, but we also realized that one row/column wouldn't work as each cell needs to check neighboring cells (one above or one below them) and these wouldn't exist in smaller input values. Therefore, if the input value is 1 or lower, the program will ask the user to input again with a bigger number so that the visualization can show. 
 
@@ -108,7 +109,23 @@ Finally, we need to be sure that the cells will move simultaneously, as describe
 
 
 ## Design Details
-The cell's actions are defined using IAction inteface
+The cell's actions are defined using IAction interface. In order to create an action
+one has to create a class within actions package which implements IAction and 
+specify it as an action associated with a specific cell type in the XML file.
+
+XML parser parses and validates an xml to be a valid config file, by comparing
+it against an XSD file, as well as performing additional CellSociety-specific
+checks 
+
+The UI will process user input and send commands to calculate grid for any
+given generation and initial state. It stores all the previously calculated states,
+as well as updates all cells.
+
+In order to calculate new cell states, it uses Cell class and it's action.
+
+This structure will allow us to create a flexible generalized platform to implement
+various 2D CellSociety, by allowing custom actions for each cell type. Our goal is
+to have as little hard-coded elements as possible
 ## Design Consideration
 
 We first considered the degree of freedom that we want to give to users. More precisely, we were thinking about what aspects of the cell society game should be determined by user input. There were several aspects: grid dimension, number of cells, cell dimension, percentage of each initial state. We also thought about whether we should pre-determine the shape and size of the cells, can they be irregular in shape, of variant sizes? 
