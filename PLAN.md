@@ -86,11 +86,19 @@ In your design document, include the following sections:
 ## Introduction
 
 ## Overview
+The CellSociety class manages all the interactions between all the components.
+It performs computations, calculates grid's state and keeps history of all interactions
 
+Main class is the visualizer, which displays states, calculated by CellSociety,
+listens to all the inputs and allows user to interact with the simulation
+
+Cell performs computations and updates it's own state
+
+Actions define actions any type of cell takes
 ## User Interface
 
 ## Design Details
-
+The cell's actions are defined using IAction inteface
 ## Design Consideration
 
 We first considered the degree of freedom that we want to give to users. More precisely, we were thinking about what aspects of the cell society game should be determined by user input. There were several aspects: grid dimension, number of cells, cell dimension, percentage of each initial state. We also thought about whether we should pre-determine the shape and size of the cells, can they be irregular in shape, of variant sizes? 

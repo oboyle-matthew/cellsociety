@@ -3,11 +3,12 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import util.Cell;
+import util.Grid;
 
 /**
  * Main game class runner
  */
-class CellSociety extends Application {
+class CellSociety {
 
     public static void main(String[] args) {
     }
@@ -21,11 +22,6 @@ class CellSociety extends Application {
 
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-    }
-
     /**
      * Initializes all instance variables from the XML file
      *
@@ -33,6 +29,16 @@ class CellSociety extends Application {
      */
     private void init(Document config) {
 
+    }
+
+    /**
+     * Calculates the grid  at given generation
+     *
+     * @param generation: generation number
+     * @return grid of the new generation
+     */
+    private Grid getGeneration(int generation) {
+        return null;
     }
 
     /**
@@ -48,27 +54,6 @@ class CellSociety extends Application {
      * Calculate all of the cell's actions
      */
     private void calculate() {
-
-    }
-
-    /**
-     * Initializes event handlers
-     */
-    private void initEventHandlers() {
-
-    }
-
-    /**
-     * Handle keyboard events
-     */
-    private void handleKeyboardEvents() {
-
-    }
-
-    /**
-     * Handle slider events
-     */
-    private void handleSliderEvents() {
 
     }
 }
