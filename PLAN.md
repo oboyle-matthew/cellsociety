@@ -83,4 +83,4 @@ We first considered the degree of freedom that we want to give to users. More pr
 
 We also debated about whether it’s possible to have a playback, which let the game store it’s previous state so that user could get back at those later easily and quickly. One of us was concerned about whether it would take up much space.
 
-In addition, we also discussed what kind of user input we would take after the whole process had started. 
+In addition, we also discussed what kind of user input we would take after the whole process had started. We agreed that we could not let the users to change the dimension of the grid and cells. However, we were considering that we could let the user pause the process, change the speed of process taking place, and move back to any moment that’s passed by.
