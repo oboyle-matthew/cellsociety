@@ -76,3 +76,7 @@ In your design document, include the following sections:
 ## Overview
 
 ## User Interface
+
+##Design Consideration
+
+We first considered the degree of freedom that we want to give to users. More precisely, we were thinking about what aspects of the cell society game should be determined by user input. There were several aspects: grid dimension, number of cells, cell dimension, percentage of each initial state, 
