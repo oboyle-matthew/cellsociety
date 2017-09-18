@@ -14,7 +14,7 @@ public class XMLParser {
     }
 
     public static Document parse(String xml, String xsd) {
-
+        return null;
     }
 
     private static void validate(Document xml) {

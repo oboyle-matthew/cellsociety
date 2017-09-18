@@ -1,5 +1,5 @@
 
-#**Team 15**
+# Team 15
 
 Freedom - don't just allow anyone to change number of cells once it's initialized 
 Controls class that handles parameters Eg. type of cell, number of empty cells, and similar percentage BUT shouldn't be able to change any of these within each step.
@@ -49,6 +49,8 @@ In your design document, include the following sections:
     This section describes any issues which need to be addressed or resolved before attempting to devise a complete design solution. It should include any design decisions that the group discussed at length (include pros and cons from all sides of the discussion) as well as any assumptions or dependencies regarding the program that impact the overall design. This section should go into as much detail as necessary to cover all your team wants to say.
     Team Responsibilities
     This section describes the program components each team member plans to take primary and secondary responsibility for and a high-level plan of how the team will complete the program.
+## Introduction
 
+## Overview
 
-
+## User Interface
