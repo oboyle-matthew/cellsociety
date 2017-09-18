@@ -1,6 +1,19 @@
 # Team 15
 
 ## Introduction
+The goal of this project is to automate a CA (Cellular Automata) simulation of a group of cells that are modeled to interact in atleast a 2D grid space using 
+JavaFX. The automation program will define, among other things, the degrees of freedom at which the different states or configurations of the cells can be simulated. 
+For instance, our program will define the default starting configuration of the cells versus their eventual interactive behavior throughout the course of the simulation.
+In order to facilitate a certain level of program-user interaction, the program will be designed in such a way that the user will be able to change the variables 
+of the simulation depending on the degree of freedom assigned for them. In our program, we will define which variables will be changeable (i.e. the color of the cells, etc) 
+as well as the pre-determined variables that the user won't have the option to change (i.e. the initial starting configuration of the cells). 
+
+In the course of progamming the simulation of this cellular interraction, we hope to appreciate Stephen Walfram's conviction and belief in CA (Cellular Automata); the 
+program will be powerful tool that will allow researchers an unlimited opportunity to study the behavioral interaction of the cells using this simulation. This is the 
+power of CA (Cellular Automata), or any scientific simulation for that matter, that Walfram believed has the power to move scientific research and discovery forward.
+
+
+## Introduction
 
 ## Overview
 The CellSociety class manages all the interactions between all the components.
