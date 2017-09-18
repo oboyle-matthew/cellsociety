@@ -85,4 +85,5 @@ We also debated about whether it’s possible to have a playback, which let the 
 
 In addition, we also discussed what kind of user input we would take after the whole process had started. We agreed that we could not let the users to change the dimension of the grid and cells. However, we were considering that we could let the user pause the process, change the speed of process taking place, and move back to any moment that’s passed by.
 
-Moreover, we discussed what the cell would be. We brainstormed that it could be just color, or an Image, or just simple symbols.
+## Team Responsibilities
+
