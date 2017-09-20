@@ -6,9 +6,9 @@ import util.Tuple;
 
 import java.util.ArrayList;
 
-public class Nothing implements IAction {
+public class Nothing extends IAction {
     @Override
-    public State calculate(Tuple<State, ArrayList<Cell>> t) {
-        return null;
+    public State process(Tuple<State, ArrayList<Cell>> t) {
+        return t.a;
     }
 }

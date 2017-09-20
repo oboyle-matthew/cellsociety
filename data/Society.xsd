@@ -16,7 +16,7 @@
 
                 <!--Time configuration-->
 
-                <xs:element name="time-unit" type="xs:string" default="seconds">
+                <xs:element name="time-unit" type="xs:string" default="seconds" maxOccurs="0">
                     <xs:annotation>
                         <xs:appinfo>
                             Time unit
@@ -27,7 +27,7 @@
                     </xs:annotation>
                 </xs:element>
 
-                <xs:element name="step" type="xs:float" default="1.0">
+                <xs:element name="step" type="xs:float" default="1.0" maxOccurs="0">
                     <xs:annotation>
                         <xs:appinfo>
                             Step
