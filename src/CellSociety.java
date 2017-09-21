@@ -14,18 +14,15 @@ import java.util.HashMap;
  * Main game class runner
  */
 class CellSociety {
-    private static String xsd = "Society.xsd";
-
     public static void main(String[] args) {
     }
 
     /**
      * Creates an instance of the game
      *
-     * @param xml: path to an xml configuration file
+     * @param grid: first generation grid
      */
-    CellSociety(String xml) {
-        Document dom = XMLParser.parse(xml, xsd);
+    CellSociety(Grid grid) {
     }
 
     /**

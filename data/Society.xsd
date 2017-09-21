@@ -16,7 +16,7 @@
 
                 <!--Time configuration-->
 
-                <xs:element name="time-unit" type="xs:string" default="seconds" maxOccurs="0">
+                <xs:element name="time-unit" type="xs:string" default="seconds" minOccurs="0">
                     <xs:annotation>
                         <xs:appinfo>
                             Time unit
@@ -27,7 +27,7 @@
                     </xs:annotation>
                 </xs:element>
 
-                <xs:element name="step" type="xs:float" default="1.0" maxOccurs="0">
+                <xs:element name="step" type="xs:float" default="1.0" minOccurs="0">
                     <xs:annotation>
                         <xs:appinfo>
                             Step
@@ -38,7 +38,7 @@
                     </xs:annotation>
                 </xs:element>
 
-                <xs:element name="finite" type="xs:boolean" default="false">
+                <xs:element name="finite" type="xs:boolean" default="false" minOccurs="0">
                     <xs:annotation>
                         <xs:appinfo>Time line</xs:appinfo>
                         <xs:documentation>
@@ -121,9 +121,9 @@
                                                             </xs:annotation>
 
                                                             <xs:restriction>
-                                                                <xs:enumeration value="symbol"/>
-                                                                <xs:enumeration value="color"/>
-                                                                <xs:enumeration value="image"/>
+                                                                <xs:enumeration value="SYMBOL"/>
+                                                                <xs:enumeration value="COLOR"/>
+                                                                <xs:enumeration value="IMAGE"/>
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -177,14 +177,12 @@
                                             "distribution"
                                             - grid: cells will be generated according to "grid"
                                             -----------
-                                            - if random: "distribution", "width", "height", "min-width", "min-height",
-                                            "max-width", "max-height" must be defined
-                                            - if grid: "grid must be defined"
+                                            - if grid: "grid" must be defined
                                         </xs:documentation>
                                     </xs:annotation>
                                     <xs:restriction>
-                                        <xs:enumeration value="random"/>
-                                        <xs:enumeration value="grid"/>
+                                        <xs:enumeration value="RANDOM"/>
+                                        <xs:enumeration value="GRID"/>
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>

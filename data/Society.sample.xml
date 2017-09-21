@@ -11,14 +11,14 @@
         <cell>
             <symbol>0</symbol>
             <fill>
-                <type>symbol</type>
+                <type>COLOR</type>
                 <content>red</content>
             </fill>
             <action>ActionCell</action>
         </cell>
     </cells>
     <state>
-        <type>random</type>
+        <type>RANDOM</type>
         <grid>
             01234324
             12312311
