@@ -20,8 +20,12 @@ public class Config {
         COLOR, SYMBOL, IMAGE;
     }
 
-    public enum Type {
+    private enum Type {
         GRID, RANDOM;
+    }
+
+    class CellType {
+
     }
 
     private static String DEFAULT_TIME_UNIT = "seconds";
@@ -45,7 +49,7 @@ public class Config {
         parseCells(xml);
     }
 
-    public Cell fromString(char c) {
+    public Cell fromSymbol(char s) {
         return null;
     }
 
@@ -62,7 +66,12 @@ public class Config {
     }
 
     private static Element getFirstChild(Document xml, String tag) {
-        NodeList list = xml.getChildNodes();
+        NodeList list = xml.getElementsByTagName(tag);
+        return list.getLength() == 0 ? null : (Element) list.item(0);
+    }
+
+    private static Element getFirstChild(Element root, String tag) {
+        NodeList list = root.getElementsByTagName(tag);
         return list.getLength() == 0 ? null : (Element) list.item(0);
     }
 
@@ -74,10 +83,10 @@ public class Config {
         end_time = (buffer = getTextFromTag(xml, "end-time")) == null ? end_time : Double.parseDouble(buffer);
     }
 
-    private void parseCells(Document root) {
-        try {
-            NodeList cells_node = getFirstChild(root, "cells").getElementsByTagName("cell");
-        } catch (Exception e) {
+    private void parseCells(Document xml) {
+        NodeList cells_dom = xml.getElementsByTagName("cell");
+        for (int i = 0; i < cells_dom.getLength(); ++i) {
+            Element cell_type = (Element) cells_dom.item(i);
 
         }
     }

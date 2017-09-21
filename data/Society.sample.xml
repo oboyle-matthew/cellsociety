@@ -14,7 +14,7 @@
                 <type>COLOR</type>
                 <content>red</content>
             </fill>
-            <action>ActionCell</action>
+            <action>Nothing</action>
         </cell>
     </cells>
     <state>

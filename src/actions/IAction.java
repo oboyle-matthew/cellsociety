@@ -12,9 +12,8 @@ abstract public class IAction {
      * Calculates action of a given Cell, provided neighbouring Cells
      *
      * @param t: tuple of current state and ArrayList of neighbours
-     * @return new state of the cell
      */
-    public State process(Tuple<State, ArrayList<Cell>> t) {
+    public void process(Tuple<State, ArrayList<Cell>> t) {
         throw new NotImplementedException();
     }
 }

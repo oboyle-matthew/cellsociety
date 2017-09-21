@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class Nothing extends IAction {
     @Override
-    public State process(Tuple<State, ArrayList<Cell>> t) {
-        return t.a;
+    public void process(Tuple<State, ArrayList<Cell>> t) {
     }
 }

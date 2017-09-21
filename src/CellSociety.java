@@ -26,31 +26,13 @@ class CellSociety {
     }
 
     /**
-     * Initializes all instance variables from the XML file
-     *
-     * @param config: configuration object
-     */
-    private void init(Document config) {
-
-    }
-
-    /**
      * Calculates the grid  at given generation
      *
      * @param generation: generation number
      * @return grid of the new generation
      */
-    private Grid getGeneration(int generation) {
+    public Grid getGeneration(int generation) {
         return null;
-    }
-
-    /**
-     * Perform all the necessary computations since the last step
-     *
-     * @param dt: time interval
-     */
-    private void step(double dt) {
-
     }
 
     /**
