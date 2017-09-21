@@ -38,6 +38,7 @@ public class Config {
     private static Fill DEFAULT_FILL[] = {Fill.COLOR};
 
     private HashMap<Character, Class<? extends IAction>> cls;
+    public String grid;
     public String time_unit = DEFAULT_TIME_UNIT;
     public double step = DEFAULT_STEP;
 

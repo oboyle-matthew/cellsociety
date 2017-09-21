@@ -6,11 +6,11 @@ public class Grid {
     private int[][] grid;
     private ArrayList<Cell> cells;
 
-    Grid(ArrayList<Cell> cells) {
+    public Grid(ArrayList<Cell> cells) {
 
     }
 
-    Grid(String data) {
+    public Grid(String data) {
         cells = new ArrayList<>();
         String[] lines = data.split("\n");
         for (String line: lines) {
