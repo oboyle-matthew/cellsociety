@@ -1,13 +1,12 @@
 package actions;
-
 import util.Cell;
-import util.State;
 import util.Tuple;
 
 import java.util.ArrayList;
 
-public class Nothing extends IAction {
+public class Nothing extends AbstractAction {
     @Override
-    public void process(Tuple<State, ArrayList<Cell>> t) {
+    public void process(Tuple<Cell, ArrayList<Cell>> t) {
+
     }
 }

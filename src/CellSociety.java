@@ -3,6 +3,7 @@ import actions.Nothing;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.w3c.dom.Document;
+import util.Cell;
 import util.Grid;
 import util.Grid;
 import util.XMLParser;
@@ -14,9 +15,6 @@ import java.util.HashMap;
  * Main game class runner
  */
 class CellSociety {
-    public static void main(String[] args) {
-    }
-
     /**
      * Creates an instance of the game
      *
@@ -33,6 +31,7 @@ class CellSociety {
      */
     public Grid getGeneration(int generation) {
         return null;
+        new Cell(Nothing.process);
     }
 
     /**

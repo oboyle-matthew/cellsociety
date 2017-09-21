@@ -3,7 +3,7 @@ package util;
 import java.util.ArrayList;
 
 public class Grid {
-    private int[][] grid;
+    private Grid[][] grid;
     private ArrayList<Cell> cells;
 
     public Grid(ArrayList<Cell> cells) {

@@ -88,7 +88,6 @@ public class Config {
         NodeList cells_dom = xml.getElementsByTagName("cell");
         for (int i = 0; i < cells_dom.getLength(); ++i) {
             Element cell_type = (Element) cells_dom.item(i);
-
         }
     }
 }

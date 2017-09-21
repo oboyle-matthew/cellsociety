@@ -4,7 +4,6 @@
     <time-unit>
         seconds
     </time-unit>
-    <step>1.</step>
     <finite>true</finite>
     <end-time>10000</end-time>
     <cells>

@@ -2,18 +2,17 @@ package actions;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import util.Cell;
-import util.State;
 import util.Tuple;
 
 import java.util.ArrayList;
 
-abstract public class IAction {
+class AbstractAction {
     /**
      * Calculates action of a given Cell, provided neighbouring Cells
      *
      * @param t: tuple of current state and ArrayList of neighbours
      */
-    public void process(Tuple<State, ArrayList<Cell>> t) {
+    public static void process(Tuple<Cell, ArrayList<Cell>> t) {
         throw new NotImplementedException();
     }
 }
