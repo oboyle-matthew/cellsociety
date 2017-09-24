@@ -60,9 +60,18 @@ public class Config {
         FillType(String typeString, String content) throws XMLParseException {
             try {
                 type = Fill.valueOf(typeString);
+                init(content);
             } catch (NullPointerException | IllegalArgumentException e) {
                 throw new XMLParseException("Invalid fill type " + typeString);
             }
+        }
+
+        FillType(Fill type, String content) throws XMLParseException {
+            this.type = type;
+            init(content);
+        }
+
+        private void init(String content) throws XMLParseException {
             switch (type) {
                 case COLOR:
                     try {
@@ -305,7 +314,13 @@ public class Config {
             cellType.setRatio(cellType.getRatio() / counter);
     }
 
-    private void createAutoFill() {
-
+    private void createAutoFill() throws XMLParseException {
+        int n = cellTypes.size();
+        int hueStep = 180 / n;
+        int hue = 0;
+        for (CellType type : cellTypes.values()) {
+            type.fills.add(new FillType(Fill.COLOR, "hsv(" + hue + "100, 100)"));
+            hue += hueStep;
+        }
     }
 }
