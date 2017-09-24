@@ -114,11 +114,14 @@ public class Main extends Application {
     }
     
     private void handleKeyInput (KeyCode code) {
-    	if (code == KeyCode.RIGHT) {
-    		//step forward
-    	} if (code == KeyCode.P) {
+    	if (code == KeyCode.RIGHT && !startGame) {
+    		
+    		//step forward (only if game is paused)
+    	if (code == KeyCode.P) {
+    		startGame = false;
     		//stop simulation
     	} if (code == KeyCode.S) {
+    		startGame = true;
     		//start simulation
     	}
     }
