@@ -15,6 +15,10 @@ class CellSociety {
      * @param config: configuration
      */
     CellSociety(Config config) {
+        update(config);
+    }
+
+    void update(Config config) {
         this.config = config;
         grid = new Grid(config);
     }
