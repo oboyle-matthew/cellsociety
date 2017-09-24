@@ -22,6 +22,7 @@ import javax.management.modelmbean.XMLParseException;
 
 public class Main extends Application {
     private static String xsd = "data/Society.xsd";
+    private boolean startGame;
     private final String TITLE = "Team 15";
     private final int FRAMES_PER_SECOND = 60;
 	private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -125,5 +126,5 @@ public class Main extends Application {
     		//start simulation
     	}
     }
-
+}
 }
