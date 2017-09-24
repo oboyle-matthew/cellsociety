@@ -43,7 +43,6 @@ public class Main extends Application {
 
     public void update(int generation) {
         grid = cellSociety.calculate(generation);
-        draw(grid);
     }
 
     /**
@@ -69,7 +68,7 @@ public class Main extends Application {
 
     private void draw(Grid grid) {
         //https://stackoverflow.com/questions/28870460/how-to-create-a-background-grid
-    	
+    	grid.getGroup();
     	double w = gridSize;
         double h = gridSize;
 

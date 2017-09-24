@@ -1,6 +1,7 @@
 package util;
 
 import interfaces.Updatable;
+import javafx.scene.Group;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -64,6 +65,10 @@ public class Grid implements Updatable<Grid.Update> {
             cell.applyUpdates();
 
         applyUpdates();
+    }
+
+    public Group getGroup() {
+        return null;
     }
 
     int getRows() {
