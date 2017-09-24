@@ -35,7 +35,6 @@ public class Main extends Application {
 	private boolean startGame;
 	
     private static String xsd = "data/Society.xsd";
-    private boolean startGame;
     private final String TITLE = "Team 15";
     private final int FRAMES_PER_SECOND = 60;
 	private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -127,15 +126,37 @@ public class Main extends Application {
         // scene.setFill(pattern);
     }
     
-    private void createButton() {
+    private void createStartButtons() {
     	Button segregation = new Button();
     	segregation.addEventHandler(MouseEvent.MOUSE_CLICKED,
     		    new EventHandler<MouseEvent>() {
     		        @Override public void handle(MouseEvent e) {
-    		            gametype = 0;
+    		            gametype = SEGREGATION;
+    		        }
+    	});
+    	Button predator = new Button();
+    	predator.addEventHandler(MouseEvent.MOUSE_CLICKED,
+    		    new EventHandler<MouseEvent>() {
+    		        @Override public void handle(MouseEvent e) {
+    		            gametype = PREDATOR_PREY;
+    		        }
+    	});
+    	Button fire = new Button();
+    	fire.addEventHandler(MouseEvent.MOUSE_CLICKED,
+    		    new EventHandler<MouseEvent>() {
+    		        @Override public void handle(MouseEvent e) {
+    		            gametype = FIRE;
+    		        }
+    	});
+    	Button gameOfLife = new Button();
+    	gameOfLife.addEventHandler(MouseEvent.MOUSE_CLICKED,
+    		    new EventHandler<MouseEvent>() {
+    		        @Override public void handle(MouseEvent e) {
+    		            gametype = GAME_OF_LIFE;
     		        }
     	});
     }
+    
     
     private void handleKeyInput (KeyCode code) {
     	if (code == KeyCode.RIGHT && !startGame) {
@@ -150,5 +171,4 @@ public class Main extends Application {
     		//start simulation
     	}
     }
-}
 }
