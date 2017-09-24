@@ -18,15 +18,12 @@ public class Cell extends Rectangle {
     private State state;
     private int width;
     private int height;
-    private Consumer<Tuple<Cell, Grid>> action;
 
     /**
      * Creates an instance of a cell
-     *
-     * @param action: the cell's action
      */
-    public Cell(Consumer<Tuple<Cell, ArrayList<Cell>>> action) {
-        setAction(action);
+    public Cell() {
+
     }
 
     /**
@@ -41,12 +38,5 @@ public class Cell extends Rectangle {
      */
     public void setState(State state) {
         this.state = state;
-    }
-
-    /**
-     * Sets action
-     */
-    public void setAction(Consumer<Tuple<Cell, ArrayList<Cell>>> action) {
-        this.action = action;
     }
 }

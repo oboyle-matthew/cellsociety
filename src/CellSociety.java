@@ -31,7 +31,6 @@ class CellSociety {
      */
     public Grid getGeneration(int generation) {
         return null;
-        new Cell(Nothing.process);
     }
 
     /**
