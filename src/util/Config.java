@@ -5,10 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 import javax.management.modelmbean.XMLParseException;
 import java.io.File;
@@ -281,8 +278,31 @@ public class Config {
             cellType.setRatio(cellType.getRatio() / counter);
     }
 
-    private void parseDistribution(Element state_dom) {
-        
+    private void parseDistribution(Element state_dom) throws XMLParseException {
+        Element distribution_dom = getFirstChild(state_dom, "distribution");
+        if (distribution_dom == null)
+            throw new XMLParseException("Distribution must be defined, when type RANDOM selected");
+        NodeList list = distribution_dom.getElementsByTagName("weight");
+        double counter = 0.;
+        for (int i = 0; i < list.getLength(); ++i) {
+            Node node = list.item(i);
+            Node symbol_dom = node.getAttributes().getNamedItem("cell");
+            if (symbol_dom == null)
+                throw new XMLParseException("Weight must have an attribute cell");
+            if (symbol_dom.getTextContent().length() != 1)
+                throw new XMLParseException("Cell must be a character");
+            CellType type = cellTypes.get(symbol_dom.getTextContent().charAt(0));
+            try {
+                double ratio = Double.parseDouble(node.getTextContent());
+                counter += ratio;
+                type.setRatio(ratio);
+            } catch (NumberFormatException e) {
+                throw new XMLParseException("Weight must be a double");
+            }
+        }
+
+        for (CellType cellType : cellTypes.values())
+            cellType.setRatio(cellType.getRatio() / counter);
     }
 
     private void createAutoFill() {
