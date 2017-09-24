@@ -9,7 +9,8 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;;import java.io.File;
+import org.xml.sax.SAXException;
+import java.io.File;
 import java.io.IOException;
 
 /**
