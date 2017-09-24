@@ -46,7 +46,7 @@ public class Config {
             }
         }
 
-        public void setRatio(double ratio) {
+        void setRatio(double ratio) {
             this.ratio = ratio;
         }
 
@@ -260,19 +260,29 @@ public class Config {
 
         int rows = lines.length;
         int cols = lines[0].length();
+        int counter = 0;
         grid = new CellType[cols][rows];
         for (int j = 0; j < rows; ++j) {
             if (lines[j].length() != cols)
                 throw  new XMLParseException("All rows must be same size");
             for (int i = 0; i < cols; ++i) {
                 char c = lines[j].charAt(i);
+                if (c == '0')
+                    continue;
                 grid[i][j] = cellTypes.get(c);
+                if (grid[i][j] == null)
+                    throw new XMLParseException("Unknown cell type " + c);
+                grid[i][j].setRatio(grid[i][j].getRatio() + 1);
+                counter++;
             }
         }
+
+        for (CellType cellType : cellTypes.values())
+            cellType.setRatio(cellType.getRatio() / counter);
     }
 
     private void parseDistribution(Element state_dom) {
-
+        
     }
 
     private void createAutoFill() {
