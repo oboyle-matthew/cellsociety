@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,12 +6,15 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
+import org.w3c.dom.Document;
 import util.Config;
 import util.Grid;
 import util.XMLParser;
 
+import javax.management.modelmbean.XMLParseException;
+
 public class Main extends Application {
-    private static String xsd = "Society.xsd";
+    private static String xsd = "data/Society.xsd";
 
     private Config config;
     private Grid grid;
@@ -28,7 +30,13 @@ public class Main extends Application {
     }
 
     private void init(String xml) {
-        config = new Config(XMLParser.parse(xml, xsd));
+        try {
+            Document dom = XMLParser.parse(xml, xsd);
+            config = new Config(dom);
+        } catch (XMLParseException e) {
+            System.err.print(e.toString());
+            System.exit(0);
+        }
         cellSociety = new CellSociety(config);
     }
 
@@ -75,6 +83,6 @@ public class Main extends Application {
         Image image = canvas.snapshot(new SnapshotParameters(), null);
         ImagePattern pattern = new ImagePattern(image, 0, 0, w, h, false);
         
-        scene.setFill(pattern);
+        // scene.setFill(pattern);
     }
 }

@@ -121,7 +121,6 @@
                                                             </xs:annotation>
 
                                                             <xs:restriction>
-                                                                <xs:enumeration value="SYMBOL"/>
                                                                 <xs:enumeration value="COLOR"/>
                                                                 <xs:enumeration value="IMAGE"/>
                                                             </xs:restriction>
