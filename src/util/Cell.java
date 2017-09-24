@@ -29,7 +29,7 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         }
 
         public Update(int x, int y) {
-            this(x, y,-1);
+            this(x, y, -1);
         }
 
         public Update(int status) {
@@ -49,13 +49,12 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
 
     private int x;
     private int y;
+    private int status;
 
     private Grid grid;
     private Action action;
     private PriorityQueue<Update> updates;
-
     private Tuple<Integer, Integer> position;
-    private int status;
 
 
     /**
@@ -65,8 +64,8 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         this.action = action;
         this.grid = grid;
 
-        this.width = width;
-        this.height = height;
+        this.width = grid.getWidth() / grid.getCols();
+        this.height = grid.getHeight() / grid.getRows();
         setPosition(x, y);
 
         grid.move(this);
@@ -80,17 +79,6 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     public void setAction(Action action, Grid grid) {
         this.action = action;
         this.grid = grid;
-    }
-
-    Tuple<Integer, Integer> getPosition() {
-        return position;
-    }
-
-    public void setPosition(int x, int y) {
-        this.x = x == -1 ? this.x : x;
-        this.y = y == -1 ? this.y : y;
-        setX(this.x * width);
-        setY(this.y * height);
     }
 
     public Tuple<Cell.Update, Grid.Update> execute(Cell cell, Grid grid) {
@@ -110,5 +98,17 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
             status = update.status;
         }
         updates.clear();
+    }
+
+    Tuple<Integer, Integer> getPosition() {
+        return position;
+    }
+
+    void setPosition(int x, int y) {
+        position = new Tuple<>(x, y);
+        this.x = x == -1 ? this.x : x;
+        this.y = y == -1 ? this.y : y;
+        setX(this.x * width);
+        setY(this.y * height);
     }
 }

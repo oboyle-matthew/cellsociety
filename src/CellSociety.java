@@ -1,15 +1,21 @@
+import util.Config;
 import util.Grid;
 
 /**
  * Main game class runner
  */
 class CellSociety {
+    private Config config;
+    private Grid grid;
+
     /**
      * Creates an instance of the game
      *
-     * @param grid: first generation grid
+     * @param config: configuration
      */
-    CellSociety(Grid grid) {
+    CellSociety(Config config) {
+        this.config = config;
+        grid = new Grid(config);
     }
 
     /**
@@ -18,7 +24,7 @@ class CellSociety {
      * @param generation: generation number
      * @return grid of the new generation
      */
-    public Grid calculate(int generation) {
+    Grid calculate(int generation) {
         return null;
     }
 

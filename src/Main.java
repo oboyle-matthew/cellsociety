@@ -20,7 +20,7 @@ public class Main extends Application {
 
     private void init(String xml) {
         config = new Config(XMLParser.parse(xml, xsd));
-        cellSociety = new CellSociety(new Grid(config.grid));
+        cellSociety = new CellSociety(config);
     }
 
     public void update(int generation) {

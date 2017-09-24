@@ -38,31 +38,13 @@ public class Grid implements Updatable<Grid.Update> {
     private int rows;
     private int cols;
 
-    public Grid(ArrayList<Cell> cells) {
-        this.cells = cells;
-        updates = new PriorityQueue<>(new UpdatePriorityComparator());
-    }
-
-    public Grid(String data) {
-        String[] lines = data.split("\n");
+    public Grid(Config config) {
+        String[] lines = config.grid.split("\n");
         for (String line : lines) {
             for (char c : line.toCharArray()) {
             }
         }
-    }
-
-    public void move(Cell cell) {
-        Tuple<Integer, Integer> pos = cell.getPosition();
-        if (pos.a < 0 || pos.b < 0
-                || pos.a >= cols || pos.b >= rows)
-            return;
-        grid[pos.a][pos.b] = cell;
-        cell.setPosition(pos.a, pos.b);
-    }
-
-    private void add(Cell cell) {
-        cells.add(cell);
-        move(cell);
+        updates = new PriorityQueue<>(new UpdatePriorityComparator());
     }
 
     @Override
@@ -77,5 +59,45 @@ public class Grid implements Updatable<Grid.Update> {
                 add(cell);
         }
         updates.clear();
+    }
+
+    public void next() {
+        for (Cell cell : cells)
+            cell.execute(cell, this);
+
+        for (Cell cell : cells)
+            cell.applyUpdates();
+
+        applyUpdates();
+    }
+
+    int getRows() {
+        return rows;
+    }
+
+    int getCols() {
+        return cols;
+    }
+
+    double getWidth() {
+        return width;
+    }
+
+    double getHeight() {
+        return height;
+    }
+
+    private void add(Cell cell) {
+        if (move(cell))
+            cells.add(cell);
+    }
+
+    boolean move(Cell cell) {
+        Tuple<Integer, Integer> pos = cell.getPosition();
+        if (pos.a < 0 || pos.b < 0 || pos.a >= cols || pos.b >= rows || grid[pos.a][pos.b] == null)
+            return false;
+        grid[pos.a][pos.b] = cell;
+        cell.setPosition(pos.a, pos.b);
+        return true;
     }
 }
