@@ -1,5 +1,9 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,7 +13,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.w3c.dom.Document;
 import util.Config;
 import util.Grid;
@@ -29,17 +35,39 @@ public class Main extends Application {
 	private boolean startGame;
 	
     private static String xsd = "data/Society.xsd";
+    private final String TITLE = "Team 15";
+    private final int FRAMES_PER_SECOND = 60;
+	private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	private final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	private final Paint BACKGROUND = Color.ALICEBLUE;
+	private int generation;
 
     private Config config;
     private Grid grid;
     private CellSociety cellSociety;
 
     private double dt = .1;
-    
+    private Stage theStage;
+    private Scene myScene;
+    private Group root;
+    private Timeline animation;
     private double gridSize = 500;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        theStage = primaryStage;
+    	root = new Group();
+    	myScene = new Scene(root, gridSize, gridSize, BACKGROUND);
+    	primaryStage.setScene(myScene);
+    	primaryStage.setTitle(TITLE);
+    	primaryStage.show();
+    	KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+                                  e -> update(generation));
+    	animation = new Timeline();
+    	animation.setCycleCount(Timeline.INDEFINITE);
+    	animation.getKeyFrames().add(frame);
+    	animation.play();
+
     }
 
     private void init(String xml) {
@@ -112,7 +140,8 @@ public class Main extends Application {
     	if (code == KeyCode.RIGHT && !startGame) {
     		
     		//step forward (only if game is paused)
-    	} if (code == KeyCode.P) {
+    	}
+    	if (code == KeyCode.P) {
     		startGame = false;
     		//stop simulation
     	} if (code == KeyCode.S) {
