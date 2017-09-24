@@ -11,15 +11,14 @@ public class Grid implements Updatable<Grid.Update> {
         ArrayList<Cell> newCells;
     }
 
-    private class UpdatePriorityComparator implements Comparator<Cell.Update> {
+    private class UpdatePriorityComparator implements Comparator<Grid.Update> {
         @Override
-        public int compare(Cell.Update o1, Cell.Update o2) {
+        public int compare(Grid.Update o1, Grid.Update o2) {
             return o2.priority - o1.priority;
         }
     }
 
     private Grid[][] grid;
-    private Grid[][] future_grid;
     private ArrayList<Cell> cells;
 
     public Grid(ArrayList<Cell> cells) {
@@ -41,6 +40,10 @@ public class Grid implements Updatable<Grid.Update> {
 
     @Override
     public void applyUpdates() {
+
+    }
+
+    void move(Cell cell) {
 
     }
 }

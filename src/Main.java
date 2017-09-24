@@ -1,6 +1,5 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.w3c.dom.Document;
 import util.Config;
 import util.Grid;
 import util.XMLParser;
@@ -25,7 +24,7 @@ public class Main extends Application {
     }
 
     public void update(int generation) {
-        grid = cellSociety.getGeneration(generation);
+        grid = cellSociety.calculate(generation);
         draw(grid);
     }
 

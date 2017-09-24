@@ -18,7 +18,7 @@ class CellSociety {
      * @param generation: generation number
      * @return grid of the new generation
      */
-    public Grid getGeneration(int generation) {
+    public Grid calculate(int generation) {
         return null;
     }
 

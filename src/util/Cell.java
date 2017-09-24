@@ -25,6 +25,7 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         }
     }
 
+    private Grid grid;
     private PriorityQueue<Update> updates;
     private int status;
 
@@ -38,8 +39,9 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         updates = new PriorityQueue<>(new UpdatePriorityComparator());
     }
 
-    public void setAction(Action action) {
+    public void setAction(Action action, Grid grid) {
         this.action = action;
+        this.grid = grid;
     }
 
     public int getStatus() {
@@ -58,10 +60,11 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     @Override
     public void applyUpdates() {
         for (Update update : updates) {
-            this.setX(update.x);
-            this.setY(update.y);
-            this.status = update.status;
+            setX(update.x);
+            setY(update.y);
+            status = update.status;
+            grid.move(this);
         }
-        updates = new PriorityQueue<>(new UpdatePriorityComparator());
+        updates.clear();
     }
 }
