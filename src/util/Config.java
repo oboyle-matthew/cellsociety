@@ -114,7 +114,7 @@ public class Config {
         parseState(xml);
     }
 
-    public Cell[][] getGrid() {
+    public CellType[][] getGrid() {
         return grid;
     }
 
