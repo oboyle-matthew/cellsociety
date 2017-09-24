@@ -159,7 +159,7 @@
 
                 <!--util.State definition-->
 
-                <xs:element name="update">
+                <xs:element name="state">
                     <xs:complexType>
                         <xs:annotation>
                             <xs:appinfo>Initial update</xs:appinfo>

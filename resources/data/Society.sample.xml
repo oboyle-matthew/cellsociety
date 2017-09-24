@@ -16,7 +16,7 @@
             <action>Nothing</action>
         </cell>
     </cells>
-    <update>
+    <state>
         <type>RANDOM</type>
         <grid>
             01234324
@@ -26,5 +26,5 @@
         <distribution>
             <weight cell="1">.3</weight>
         </distribution>
-    </update>
+    </state>
 </game>

@@ -24,17 +24,27 @@ public class Config {
      * Essential on render -> has to be public
      */
     public enum Fill {
-        COLOR, IMAGE;
+        COLOR, IMAGE
     }
 
     private enum Type {
-        GRID, RANDOM;
+        GRID, RANDOM
     }
 
     class CellType {
         ArrayList<FillType> fills;
-        Class<Action> Action;
+        Class<? extends Action> ActionClazz;
         Character symbol;
+        double ratio;
+
+        Action getAction() {
+            try {
+                return ActionClazz.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                System.err.print(e.toString());
+                return null;
+            }
+        }
     }
 
     class FillType {
@@ -82,8 +92,7 @@ public class Config {
     // Ability to add several fills in sequence
     private static Fill DEFAULT_FILL[] = {Fill.COLOR};
 
-    private HashMap<Character, Class<Action>> cellTypes;
-    public String grid;
+    private HashMap<Character, CellType> cellTypes;
     public String time_unit = DEFAULT_TIME_UNIT;
     public double step = DEFAULT_STEP;
 
@@ -93,6 +102,7 @@ public class Config {
     public Config(Document xml) throws XMLParseException {
         parseTimeLine(xml);
         parseCells(xml);
+        parseState(xml);
     }
 
     public Cell fromSymbol(char s) {
@@ -137,29 +147,38 @@ public class Config {
             CellType cellType = new CellType();
             cellType.fills = new ArrayList<>();
 
+            boolean fillDefined = parseFill(cellType, cellTypeDef);
             parseSymbol(cellType, cellTypeDef);
-            if (!parseFill(cellType, cellTypeDef))
-                autoFill = false;
+            parseAction(cellType, cellTypeDef);
 
-            if (cellTypes.containsKey(cellType.symbol))
-                throw new XMLParseException("Symbol must be unique");
+            if (autoFill && !fillDefined)
+                throw new XMLParseException("If fill must be defined or undefined for all cells");
+            autoFill = !fillDefined;
 
-
-            cellTypes.put(cellType.symbol, null);
+            cellTypes.put(cellType.symbol, cellType);
         }
+        if (autoFill)
+            createAutoFill();
     }
 
     private void parseSymbol(CellType cellType, Element cellTypeDef) throws XMLParseException {
         Node node = cellTypeDef.getElementsByTagName("symbol").item(0);
         if (node == null)
             throw new XMLParseException("Cell type must have a symbol");
+
         String symbol = node.getTextContent();
         if (symbol.length() != 1)
             throw new XMLParseException("Symbol must be length 1");
+
         cellType.symbol = symbol.charAt(0);
+        if (cellType.symbol == '0')
+            throw new XMLParseException("Symbol 0 is reserved for empty space");
+
+        if (cellTypes.containsKey(cellType.symbol))
+            throw new XMLParseException("Symbol must be unique");
     }
 
-    private boolean parseFill(CellType cellType, Element cellTypeDef) throws XMLParseException{
+    private boolean parseFill(CellType cellType, Element cellTypeDef) throws XMLParseException {
         NodeList list = cellTypeDef.getElementsByTagName("fill");
         if (list.getLength() == 0)
             return false;
@@ -167,10 +186,34 @@ public class Config {
             Element fillDef = (Element) list.item(i);
             Node type_node = fillDef.getElementsByTagName("type").item(0);
             Node content_node = fillDef.getElementsByTagName("content").item(0);
-            if (type_node ==null || content_node == null)
+            if (type_node == null || content_node == null)
                 throw new XMLParseException("Fill must have both type and content");
             cellType.fills.add(new FillType(type_node.getTextContent(), content_node.getTextContent()));
         }
         return true;
+    }
+
+    private void parseAction(CellType cellType, Element cellTypeDef) throws XMLParseException {
+        Node action_node = cellTypeDef.getElementsByTagName("action").item(0);
+        if (action_node == null)
+            throw new XMLParseException("Cell type must define an action");
+        try {
+            cellType.ActionClazz = Class.forName("actions."
+                    + action_node.getTextContent()).asSubclass(Action.class);
+        } catch (ClassNotFoundException | LinkageError e) {
+            throw new XMLParseException("Action " + action_node.getTextContent() + " not found." +
+                    "Actions must be located in actions/");
+        } catch (ClassCastException e) {
+            throw new XMLParseException("Action must extend Action class");
+        }
+    }
+
+    private void parseState(Document xml) {
+        Element state_dom = (Element) xml.getElementsByTagName("state").item(0);
+        
+    }
+
+    private void createAutoFill() {
+
     }
 }
