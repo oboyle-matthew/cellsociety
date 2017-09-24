@@ -1,9 +1,12 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
@@ -15,6 +18,13 @@ import util.XMLParser;
 import javax.management.modelmbean.XMLParseException;
 
 public class Main extends Application {
+	public static final int SEGREGATION = 0;
+	public static final int PREDATOR_PREY = 1;
+	public static final int FIRE = 2;
+	public static final int GAME_OF_LIFE = 3;
+	
+	private int gametype;
+	
 	
 	private boolean startGame;
 	
@@ -86,6 +96,16 @@ public class Main extends Application {
         ImagePattern pattern = new ImagePattern(image, 0, 0, w, h, false);
         
         // scene.setFill(pattern);
+    }
+    
+    private void createButton() {
+    	Button segregation = new Button();
+    	segregation.addEventHandler(MouseEvent.MOUSE_CLICKED,
+    		    new EventHandler<MouseEvent>() {
+    		        @Override public void handle(MouseEvent e) {
+    		            gametype = 0;
+    		        }
+    	});
     }
     
     private void handleKeyInput (KeyCode code) {
