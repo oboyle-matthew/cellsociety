@@ -12,10 +12,29 @@ import java.util.PriorityQueue;
  */
 public class Cell extends Rectangle implements Updatable<Cell.Update> {
     public class Update {
-        public int priority;
-        double x;
-        double y;
+        int priority;
+        int x;
+        int y;
         int status;
+
+        public Update(int x, int y, int status, int priority) {
+            this.priority = priority;
+            this.x = x;
+            this.y = y;
+            this.status = status;
+        }
+
+        public Update(int x, int y, int priority) {
+            this(x, y, -1, priority);
+        }
+
+        public Update(int x, int y) {
+            this(x, y,-1);
+        }
+
+        public Update(int status) {
+            this(-1, -1, status, -1);
+        }
     }
 
     private class UpdatePriorityComparator implements Comparator<Update> {
@@ -25,18 +44,37 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         }
     }
 
+    private double width;
+    private double height;
+
+    private int x;
+    private int y;
+
     private Grid grid;
+    private Action action;
     private PriorityQueue<Update> updates;
+
+    private Tuple<Integer, Integer> position;
     private int status;
 
-    private Action action;
 
     /**
      * Creates an instance of a cell
      */
-    public Cell(Action action) {
+    public Cell(int x, int y, Grid grid, Action action) {
         this.action = action;
+        this.grid = grid;
+
+        this.width = width;
+        this.height = height;
+        setPosition(x, y);
+
+        grid.move(this);
         updates = new PriorityQueue<>(new UpdatePriorityComparator());
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public void setAction(Action action, Grid grid) {
@@ -44,8 +82,15 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         this.grid = grid;
     }
 
-    public int getStatus() {
-        return status;
+    Tuple<Integer, Integer> getPosition() {
+        return position;
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x == -1 ? this.x : x;
+        this.y = y == -1 ? this.y : y;
+        setX(this.x * width);
+        setY(this.y * height);
     }
 
     public Tuple<Cell.Update, Grid.Update> execute(Cell cell, Grid grid) {
@@ -60,10 +105,9 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     @Override
     public void applyUpdates() {
         for (Update update : updates) {
-            setX(update.x);
-            setY(update.y);
-            status = update.status;
+            setPosition(update.x, update.y);
             grid.move(this);
+            status = update.status;
         }
         updates.clear();
     }
