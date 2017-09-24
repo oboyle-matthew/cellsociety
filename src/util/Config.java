@@ -20,11 +20,11 @@ public class Config {
      * Enum of types of fill
      * Essential on render -> has to be public
      */
-    public enum Fill {
+    enum Fill {
         COLOR, IMAGE
     }
 
-    private enum Type {
+    enum Type {
         GRID, RANDOM
     }
 
@@ -103,6 +103,9 @@ public class Config {
     private static boolean DEFAULT_FINITE = false;
     private static double DEFAULT_END_TIME = 1.0;
 
+    private static double DEFAULT_SCREEN_WIDTH = 400.;
+    private static double DEFAULT_SCREEN_HEIGHT = 400.0;
+
     // Ability to add several fills in sequence
     private static Fill DEFAULT_FILL[] = {Fill.COLOR};
 
@@ -114,6 +117,14 @@ public class Config {
     public boolean finite = DEFAULT_FINITE;
     public double end_time = DEFAULT_END_TIME;
 
+    public double width = DEFAULT_SCREEN_WIDTH;
+    public double height = DEFAULT_SCREEN_HEIGHT;
+
+    public Type type = Type.RANDOM;
+
+    public int rows;
+    public int cols;
+
     public Config(Document xml) throws XMLParseException {
         parseTimeLine(xml);
         parseCells(xml);
@@ -122,6 +133,10 @@ public class Config {
 
     public CellType[][] getGrid() {
         return grid;
+    }
+
+    public HashMap<Character, CellType> getCellTypes() {
+        return cellTypes;
     }
 
     /**
@@ -250,7 +265,7 @@ public class Config {
     }
 
     private void generateEvenDistribution() {
-        int n = cellTypes.size();
+        int n = cellTypes.size() + 1;
         for (CellType cell : cellTypes.values())
             cell.setRatio(1 / n);
     }

@@ -8,6 +8,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +42,8 @@ public class Main extends Application {
 //	private final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private final Paint BACKGROUND = Color.ALICEBLUE;
 	private int generation;
+	Label gene = new Label("Generation:" + Integer.toString(generation));
+
 
     private Config config;
     private Grid grid;
@@ -65,6 +68,9 @@ public class Main extends Application {
     	primaryStage.show();
     	KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
                                   e -> update(generation));
+                                  
+        init(xsd);
+        
     	animation = new Timeline();
     	animation.setCycleCount(Timeline.INDEFINITE);
     	animation.getKeyFrames().add(frame);

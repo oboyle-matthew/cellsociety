@@ -1,3 +1,4 @@
+import javafx.scene.Group;
 import util.Config;
 import util.Grid;
 
@@ -14,8 +15,16 @@ class CellSociety {
      * @param config: configuration
      */
     CellSociety(Config config) {
+        update(config);
+    }
+
+    void update(Config config) {
         this.config = config;
         grid = new Grid(config);
+    }
+
+    Group getGroup() {
+        return grid.getGroup();
     }
 
     /**
