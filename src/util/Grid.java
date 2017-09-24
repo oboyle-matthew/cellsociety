@@ -125,7 +125,7 @@ public class Grid implements Updatable<Grid.Update> {
     private void addFromGrid(Config config) {
         Config.CellType[][] cellTypes = config.getGrid();
         for (int i = 0; i < cellTypes.length; ++i)
-            for (int j; j < cellTypes[0].length; ++j)
+            for (int j = 0; j < cellTypes[0].length; ++j)
                 add(new Cell(i, j, this, cellTypes[i][j].getAction()));
     }
 
