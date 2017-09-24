@@ -3,6 +3,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
@@ -84,4 +85,15 @@ public class Main extends Application {
         
         // scene.setFill(pattern);
     }
+    
+    private void handleKeyInput (KeyCode code) {
+    	if (code == KeyCode.RIGHT) {
+    		//step forward
+    	} if (code == KeyCode.P) {
+    		//stop simulation
+    	} if (code == KeyCode.S) {
+    		//start simulation
+    	}
+    }
+
 }
