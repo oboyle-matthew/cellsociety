@@ -8,6 +8,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -151,7 +152,6 @@ public class Main extends Application {
     
     private void handleKeyInput (KeyCode code) {
     	if (code == KeyCode.RIGHT && !startGame) {
-    		
     		//step forward (only if game is paused)
     	}
     	if (code == KeyCode.P) {
