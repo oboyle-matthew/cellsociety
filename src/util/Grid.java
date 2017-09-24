@@ -38,12 +38,7 @@ public class Grid implements Updatable<Grid.Update> {
     private int rows;
     private int cols;
 
-    public Grid(Config config) {
-        String[] lines = config.grid.split("\n");
-        for (String line : lines) {
-            for (char c : line.toCharArray()) {
-            }
-        }
+    public Grid(ArrayList<Cell> cells) {
         updates = new PriorityQueue<>(new UpdatePriorityComparator());
     }
 

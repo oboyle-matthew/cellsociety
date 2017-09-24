@@ -45,6 +45,14 @@ public class Config {
                 return null;
             }
         }
+
+        public void setRatio(double ratio) {
+            this.ratio = ratio;
+        }
+
+        public double getRatio() {
+            return ratio;
+        }
     }
 
     class FillType {
@@ -93,6 +101,7 @@ public class Config {
     private static Fill DEFAULT_FILL[] = {Fill.COLOR};
 
     private HashMap<Character, CellType> cellTypes;
+    private CellType[][] grid = null;
     public String time_unit = DEFAULT_TIME_UNIT;
     public double step = DEFAULT_STEP;
 
@@ -105,8 +114,8 @@ public class Config {
         parseState(xml);
     }
 
-    public Cell fromSymbol(char s) {
-        return null;
+    public Cell[][] getGrid() {
+        return grid;
     }
 
     /**
@@ -162,7 +171,7 @@ public class Config {
     }
 
     private void parseSymbol(CellType cellType, Element cellTypeDef) throws XMLParseException {
-        Node node = cellTypeDef.getElementsByTagName("symbol").item(0);
+        Node node = getFirstChild(cellTypeDef, "symbol");
         if (node == null)
             throw new XMLParseException("Cell type must have a symbol");
 
@@ -184,8 +193,8 @@ public class Config {
             return false;
         for (int i = 0; i < list.getLength(); ++i) {
             Element fillDef = (Element) list.item(i);
-            Node type_node = fillDef.getElementsByTagName("type").item(0);
-            Node content_node = fillDef.getElementsByTagName("content").item(0);
+            Node type_node = getFirstChild(fillDef, "type");
+            Node content_node = getFirstChild(fillDef, "content");
             if (type_node == null || content_node == null)
                 throw new XMLParseException("Fill must have both type and content");
             cellType.fills.add(new FillType(type_node.getTextContent(), content_node.getTextContent()));
@@ -194,7 +203,7 @@ public class Config {
     }
 
     private void parseAction(CellType cellType, Element cellTypeDef) throws XMLParseException {
-        Node action_node = cellTypeDef.getElementsByTagName("action").item(0);
+        Node action_node = getFirstChild(cellTypeDef, "action");
         if (action_node == null)
             throw new XMLParseException("Cell type must define an action");
         try {
@@ -208,9 +217,62 @@ public class Config {
         }
     }
 
-    private void parseState(Document xml) {
-        Element state_dom = (Element) xml.getElementsByTagName("state").item(0);
-        
+    private void parseState(Document xml) throws XMLParseException {
+        Element state_dom = getFirstChild(xml, "state");
+        if (state_dom == null) {
+            generateEvenDistribution();
+            return;
+        }
+        Node type_dom = getFirstChild(state_dom, "type");
+        Type type;
+        if (type_dom == null)
+            throw new XMLParseException("Type must be defined");
+        try {
+            type = Type.valueOf(type_dom.getTextContent());
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new XMLParseException("Invalid state type " + type_dom.getTextContent());
+        }
+
+        switch (type) {
+            case GRID:
+                parseGrid(state_dom);
+                break;
+            case RANDOM:
+                parseDistribution(state_dom);
+                break;
+        }
+    }
+
+    private void generateEvenDistribution() {
+        int n = cellTypes.size();
+        for (CellType cell : cellTypes.values())
+            cell.setRatio(1 / n);
+    }
+
+    private void parseGrid(Element state_dom) throws XMLParseException {
+        Node grid_dom = getFirstChild(state_dom, "grid");
+        if (grid_dom == null)
+            throw new XMLParseException("Grid must be defined, when grid type is selected");
+        String grid_str = grid_dom.getTextContent();
+        String[] lines = grid_str.split("\n");
+        if (lines.length < 1 || lines[0].length() < 1)
+            throw new XMLParseException("Grid cannot be empty");
+
+        int rows = lines.length;
+        int cols = lines[0].length();
+        grid = new CellType[cols][rows];
+        for (int j = 0; j < rows; ++j) {
+            if (lines[j].length() != cols)
+                throw  new XMLParseException("All rows must be same size");
+            for (int i = 0; i < cols; ++i) {
+                char c = lines[j].charAt(i);
+                grid[i][j] = cellTypes.get(c);
+            }
+        }
+    }
+
+    private void parseDistribution(Element state_dom) {
+
     }
 
     private void createAutoFill() {
