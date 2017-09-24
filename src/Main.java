@@ -38,7 +38,7 @@ public class Main extends Application {
     private final String TITLE = "Team 15";
     private final int FRAMES_PER_SECOND = 60;
 	private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	private final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+//	private final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private final Paint BACKGROUND = Color.ALICEBLUE;
 	private int generation;
 
@@ -52,6 +52,8 @@ public class Main extends Application {
     private Group root;
     private Timeline animation;
     private double gridSize = 500;
+    
+    private double secondDelay = 1.0 / FRAMES_PER_SECOND;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -125,16 +127,41 @@ public class Main extends Application {
         
         // scene.setFill(pattern);
     }
+    
+    
+    //Note - need to add location of buttons
     private void createButton(int type) {
     	Button button = new Button();
     	button.addEventHandler(MouseEvent.MOUSE_CLICKED,
     		    new EventHandler<MouseEvent>() {
     		        @Override public void handle(MouseEvent e) {
     		            gametype = type;
+    		            //make button disappear as well
+    		            startGame = true;
     		        }
     	});
     }
     
+    private void speedButton(double speedmultiplier) {
+    	Button speed = new Button();
+    	speed.addEventHandler(MouseEvent.MOUSE_CLICKED,
+    		    new EventHandler<MouseEvent>() {
+    		        @Override public void handle(MouseEvent e) {
+    		            secondDelay *= speedmultiplier;
+    		        }
+    	});
+    }
+    
+    private void speedUpButton() {
+    	speedButton(0.9);
+    }
+    
+    private void slowDownButton() {
+    	speedButton(1/0.9);
+    }
+    
+    
+    //NEED TO ADD LOCATION OF BUTTONS
     private void createStartButtons() {
     	createButton(SEGREGATION);
     	createButton(PREDATOR_PREY);
@@ -146,7 +173,6 @@ public class Main extends Application {
     
     private void handleKeyInput (KeyCode code) {
     	if (code == KeyCode.RIGHT && !startGame) {
-    		
     		//step forward (only if game is paused)
     	}
     	if (code == KeyCode.P) {
