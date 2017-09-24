@@ -3,7 +3,6 @@ package util;
 import actions.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.HashMap;
@@ -37,7 +36,7 @@ public class Config {
     // Ability to add several fills in sequence
     private static Fill DEFAULT_FILL[] = {Fill.COLOR};
 
-    private HashMap<Character, Class<? extends IAction>> cls;
+    private HashMap<Character, Class<? extends Action>> cls;
     public String grid;
     public String time_unit = DEFAULT_TIME_UNIT;
     public double step = DEFAULT_STEP;

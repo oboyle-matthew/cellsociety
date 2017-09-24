@@ -14,12 +14,12 @@ power of CA (Cellular Automata), or any scientific simulation for that matter, t
 
 ## Overview
 The CellSociety class manages all the interactions between all the components.
-It performs computations, calculates grid's state and keeps history of all interactions
+It performs computations, calculates grid's update and keeps history of all interactions
 
 Main class is the visualizer, which displays states, calculated by CellSociety,
 listens to all the inputs and allows user to interact with the simulation
 
-Cell performs computations and updates it's own state
+Cell performs computations and updates it's own update
 
 Actions define actions any type of cell takes
 ![Scheme](Scheme.png)
@@ -28,7 +28,7 @@ The game will start with a screen displaying a welcome message, and then four bu
 
 Related to this, we are unsure whether to put an upper bound on the number of rows and columns. Although it should technically be possible to have an infinite number of cells under this model, when actually computing a simulation there will be input values for rows and columns that would simply be too big to implement effectively - the program would not be able to run quickly and it could possibly crash. Therefore, we thought it would be a good idea to cap the number of rows and columns that the user can input, possibly at 100. This will most likely change, however, as we start to code and test with different values. We would like to allow the user to choose as big a number as possible without causing it to affect the program negatively. 
 
-After the user inputs the data, the grid will appear in its initialized state, which will be chosen randomly, with some factors chosen by user input (for example we may let the user decide the number of empty blocks, ratio of one block style to another etc.) The user will then be prompted to press ENTER to start the simulation, which will run automatically. There will be speed + and - buttons to increase and decrease the speed of simulation throughout.  There will also be an option available at all times to press ESC to return to the main menu. At any time during the automated simulation, the user can press P to pause the game (and ENTER to start it again). If the simulation is paused, the user will then be given the option to use the arrow keys to navigate forward and backwards through each state. 
+After the user inputs the data, the grid will appear in its initialized update, which will be chosen randomly, with some factors chosen by user input (for example we may let the user decide the number of empty blocks, ratio of one block style to another etc.) The user will then be prompted to press ENTER to start the simulation, which will run automatically. There will be speed + and - buttons to increase and decrease the speed of simulation throughout.  There will also be an option available at all times to press ESC to return to the main menu. At any time during the automated simulation, the user can press P to pause the game (and ENTER to start it again). If the simulation is paused, the user will then be given the option to use the arrow keys to navigate forward and backwards through each update. 
 
 We're unsure at the moment if it would be better to use arrow keys or a slider. We feel that a slider would be easier to move many steps at a time (for example if you want to move 200 steps then you just move the slider to near the end of the program, rather than having to press a key 200 times). However, we realized that the slider will need to know the finishing time of the program in order to have an end point, and this could prove impossible if the program has no end (For example in Segregation if the similarity percentage is too high and the program keeps running indefinitely). For this reason we decided to start with the arrow keys, as it would be something that definitely works, but if we feel that a slider is possible, we would try to implement it as best we could. 
 
@@ -45,7 +45,7 @@ it against an XSD file, as well as performing additional CellSociety-specific
 checks 
 
 The UI will process user input and send commands to calculate grid for any
-given generation and initial state. It stores all the previously calculated states,
+given generation and initial update. It stores all the previously calculated states,
 as well as updates all cells.
 
 In order to calculate new cell states, it uses Cell class and it's action.
@@ -55,9 +55,9 @@ various 2D CellSociety, by allowing custom actions for each cell type. Our goal 
 to have as little hard-coded elements as possible
 ## Design Consideration
 
-We first considered the degree of freedom that we want to give to users. More precisely, we were thinking about what aspects of the cell society game should be determined by user input. There were several aspects: grid dimension, number of cells, cell dimension, percentage of each initial state. We also thought about whether we should pre-determine the shape and size of the cells, can they be irregular in shape, of variant sizes? 
+We first considered the degree of freedom that we want to give to users. More precisely, we were thinking about what aspects of the cell society game should be determined by user input. There were several aspects: grid dimension, number of cells, cell dimension, percentage of each initial update. We also thought about whether we should pre-determine the shape and size of the cells, can they be irregular in shape, of variant sizes? 
 
-We also debated about whether it’s possible to have a playback, which let the game store it’s previous state so that user could get back at those later easily and quickly. One of us was concerned about whether it would take up much space.
+We also debated about whether it’s possible to have a playback, which let the game store it’s previous update so that user could get back at those later easily and quickly. One of us was concerned about whether it would take up much space.
 
 In addition, we also discussed what kind of user input we would take after the whole process had started. We agreed that we could not let the users to change the dimension of the grid and cells. However, we were considering that we could let the user pause the process, change the speed of process taking place, and move back to any moment that’s passed by.
 

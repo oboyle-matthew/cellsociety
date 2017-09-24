@@ -160,10 +160,10 @@
 
                 <!--util.State definition-->
 
-                <xs:element name="state">
+                <xs:element name="update">
                     <xs:complexType>
                         <xs:annotation>
-                            <xs:appinfo>Initial state</xs:appinfo>
+                            <xs:appinfo>Initial update</xs:appinfo>
                         </xs:annotation>
 
                         <xs:sequence>
@@ -172,7 +172,7 @@
                                     <xs:annotation>
                                         <xs:appinfo>State type</xs:appinfo>
                                         <xs:documentation>
-                                            Defines initial state type
+                                            Defines initial update type
                                             - random: cells will be generated in random locations, according to
                                             "distribution"
                                             - grid: cells will be generated according to "grid"

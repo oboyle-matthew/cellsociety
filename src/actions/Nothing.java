@@ -1,12 +1,12 @@
 package actions;
+
 import util.Cell;
+import util.Grid;
 import util.Tuple;
 
-import java.util.ArrayList;
-
-public class Nothing extends AbstractAction {
+public class Nothing extends Action {
     @Override
-    public void process(Tuple<Cell, ArrayList<Cell>> t) {
-
+    public Tuple<Cell.Update, Grid.Update> execute(Cell cell, Grid grid) {
+        return null;
     }
 }
