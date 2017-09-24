@@ -32,6 +32,7 @@ public class Grid implements Updatable<Grid.Update> {
     private Cell[][] grid;
     private ArrayList<Cell> cells;
     private PriorityQueue<Update> updates;
+    private Group group;
 
     private double width;
     private double height;
@@ -45,6 +46,8 @@ public class Grid implements Updatable<Grid.Update> {
 
         width = config.width;
         height = config.height;
+
+        group = new Group();
 
         if (config.type == Config.Type.RANDOM)
             addFromDistribution(config);
@@ -79,7 +82,7 @@ public class Grid implements Updatable<Grid.Update> {
     }
 
     public Group getGroup() {
-        return null;
+        return group;
     }
 
     int getRows() {
@@ -99,8 +102,10 @@ public class Grid implements Updatable<Grid.Update> {
     }
 
     private void add(Cell cell) {
-        if (move(cell))
+        if (move(cell)) {
             cells.add(cell);
+            group.getChildren().add(cell);
+        }
     }
 
     private void addRandom(Config.CellType cellType) {
