@@ -15,6 +15,9 @@ import util.XMLParser;
 import javax.management.modelmbean.XMLParseException;
 
 public class Main extends Application {
+	
+	private boolean startGame;
+	
     private static String xsd = "data/Society.xsd";
 
     private Config config;
@@ -27,7 +30,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
     }
 
     private void init(String xml) {
@@ -87,11 +89,14 @@ public class Main extends Application {
     }
     
     private void handleKeyInput (KeyCode code) {
-    	if (code == KeyCode.RIGHT) {
-    		//step forward
+    	if (code == KeyCode.RIGHT && !startGame) {
+    		
+    		//step forward (only if game is paused)
     	} if (code == KeyCode.P) {
+    		startGame = false;
     		//stop simulation
     	} if (code == KeyCode.S) {
+    		startGame = true;
     		//start simulation
     	}
     }
