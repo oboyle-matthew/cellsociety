@@ -125,37 +125,23 @@ public class Main extends Application {
         
         // scene.setFill(pattern);
     }
-    
-    private void createStartButtons() {
-    	Button segregation = new Button();
-    	segregation.addEventHandler(MouseEvent.MOUSE_CLICKED,
+    private void createButton(int type) {
+    	Button button = new Button();
+    	button.addEventHandler(MouseEvent.MOUSE_CLICKED,
     		    new EventHandler<MouseEvent>() {
     		        @Override public void handle(MouseEvent e) {
-    		            gametype = SEGREGATION;
-    		        }
-    	});
-    	Button predator = new Button();
-    	predator.addEventHandler(MouseEvent.MOUSE_CLICKED,
-    		    new EventHandler<MouseEvent>() {
-    		        @Override public void handle(MouseEvent e) {
-    		            gametype = PREDATOR_PREY;
-    		        }
-    	});
-    	Button fire = new Button();
-    	fire.addEventHandler(MouseEvent.MOUSE_CLICKED,
-    		    new EventHandler<MouseEvent>() {
-    		        @Override public void handle(MouseEvent e) {
-    		            gametype = FIRE;
-    		        }
-    	});
-    	Button gameOfLife = new Button();
-    	gameOfLife.addEventHandler(MouseEvent.MOUSE_CLICKED,
-    		    new EventHandler<MouseEvent>() {
-    		        @Override public void handle(MouseEvent e) {
-    		            gametype = GAME_OF_LIFE;
+    		            gametype = type;
     		        }
     	});
     }
+    
+    private void createStartButtons() {
+    	createButton(SEGREGATION);
+    	createButton(PREDATOR_PREY);
+    	createButton(FIRE);
+    	createButton(GAME_OF_LIFE);
+    }
+    
     
     
     private void handleKeyInput (KeyCode code) {
