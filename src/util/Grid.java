@@ -3,7 +3,10 @@ package util;
 import interfaces.Updatable;
 import javafx.scene.Group;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Random;
 
 public class Grid implements Updatable<Grid.Update> {
     public class Update {
@@ -48,6 +51,7 @@ public class Grid implements Updatable<Grid.Update> {
         height = config.height;
 
         group = new Group();
+        cells = new ArrayList<>();
 
         if (config.type == Config.Type.RANDOM)
             addFromDistribution(config);
@@ -85,6 +89,26 @@ public class Grid implements Updatable<Grid.Update> {
         return group;
     }
 
+    public Cell at(int i, int j) {
+        if (inBounds(i, j))
+            return grid[i][j];
+        return null;
+    }
+
+    public ArrayList<Cell> getNeighbours(Cell cell) {
+        ArrayList<Cell> list = new ArrayList<>();
+        Tuple<Integer, Integer> pos = cell.getPosition();
+        list.add(at(pos.a - 1, pos.b - 1));
+        list.add(at(pos.a, pos.b - 1));
+        list.add(at(pos.a + 1, pos.b - 1));
+        list.add(at(pos.a + 1, pos.b));
+        list.add(at(pos.a + 1, pos.b + 1));
+        list.add(at(pos.a, pos.b + 1));
+        list.add(at(pos.a - 1, pos.b + 1));
+        list.add(at(pos.a - 1, pos.b));
+        return list;
+    }
+
     int getRows() {
         return rows;
     }
@@ -114,10 +138,11 @@ public class Grid implements Updatable<Grid.Update> {
             x = random.nextInt(cols);
             y = random.nextInt(rows);
         } while (grid[x][y] != null);
-        add(new Cell(x, y, this, cellType.getAction()));
+        add(new Cell(x, y, this, cellType));
     }
 
     private void addFromDistribution(Config config) {
+        grid = new Cell[rows][cols];
         int total = cols * rows;
 
         for (Config.CellType type : config.getCellTypes().values()) {
@@ -128,18 +153,30 @@ public class Grid implements Updatable<Grid.Update> {
     }
 
     private void addFromGrid(Config config) {
+        grid = new Cell[rows][cols];
         Config.CellType[][] cellTypes = config.getGrid();
         for (int i = 0; i < cellTypes.length; ++i)
             for (int j = 0; j < cellTypes[0].length; ++j)
-                add(new Cell(i, j, this, cellTypes[i][j].getAction()));
+                add(new Cell(i, j, this, cellTypes[i][j]));
     }
 
     boolean move(Cell cell) {
         Tuple<Integer, Integer> pos = cell.getPosition();
-        if (pos.a < 0 || pos.b < 0 || pos.a >= cols || pos.b >= rows || grid[pos.a][pos.b] != null)
+        if (inBounds(pos.a, pos.b) || grid[pos.a][pos.b] != null)
             return false;
         grid[pos.a][pos.b] = cell;
-        cell.setPosition(pos.a, pos.b);
         return true;
+    }
+
+    void prettyPrint() {
+        for (int i = 0; i < grid.length; ++i) {
+            for (int j = 0; j < grid[0].length; ++j)
+                System.out.print(grid[i][j]);
+            System.out.println();
+        }
+    }
+
+    private boolean inBounds(int i, int j) {
+        return i < 0 || j < 0 || i >= cols || j >= rows;
     }
 }

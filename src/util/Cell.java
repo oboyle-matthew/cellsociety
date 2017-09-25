@@ -2,6 +2,7 @@ package util;
 
 import actions.Action;
 import interfaces.Updatable;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Comparator;
@@ -11,7 +12,7 @@ import java.util.PriorityQueue;
  * Class that implements cell functionality
  */
 public class Cell extends Rectangle implements Updatable<Cell.Update> {
-    public class Update {
+    public static class Update {
         int priority;
         int x;
         int y;
@@ -44,9 +45,6 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         }
     }
 
-    private double width;
-    private double height;
-
     private int x;
     private int y;
     private int status;
@@ -60,29 +58,18 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     /**
      * Creates an instance of a cell
      */
-    public Cell(int x, int y, Grid grid, Action action) {
-        this.action = action;
+    public Cell(int x, int y, Grid grid, Config.CellType type) {
+        super(grid.getWidth() / grid.getCols(), grid.getHeight() / grid.getRows());
+        this.action = type.getAction();
+        this.setFill(Paint.valueOf("green"));
         this.grid = grid;
-
-        this.width = grid.getWidth() / grid.getCols();
-        this.height = grid.getHeight() / grid.getRows();
         setPosition(x, y);
 
-        grid.move(this);
         updates = new PriorityQueue<>(new UpdatePriorityComparator());
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setAction(Action action, Grid grid) {
-        this.action = action;
-        this.grid = grid;
-    }
-
-    public Tuple<Cell.Update, Grid.Update> execute(Cell cell, Grid grid) {
-        return action.execute(cell, grid);
+    public void execute(Cell cell, Grid grid) {
+        action.execute(cell, grid);
     }
 
     @Override
@@ -100,15 +87,19 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         updates.clear();
     }
 
-    Tuple<Integer, Integer> getPosition() {
+    public Tuple<Integer, Integer> getPosition() {
         return position;
     }
 
-    void setPosition(int x, int y) {
+    public String toString() {
+        return "[" + x + ", " + y + "]";
+    }
+
+    private void setPosition(int x, int y) {
         position = new Tuple<>(x, y);
         this.x = x == -1 ? this.x : x;
         this.y = y == -1 ? this.y : y;
-        setX(this.x * width);
-        setY(this.y * height);
+        setX(this.x * getWidth());
+        setY(this.y * getHeight());
     }
 }

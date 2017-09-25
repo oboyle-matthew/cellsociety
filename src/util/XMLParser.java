@@ -24,7 +24,7 @@ public class XMLParser {
      * @param xml: path to an xml file
      * @return a dom object, generated from XML
      */
-    private static Document parse(String xml) {
+    private static Document parse(File xml) {
         DocumentBuilder builder;
         Document dom = null;
         try {
@@ -41,28 +41,30 @@ public class XMLParser {
     /**
      * Validates an XML file against a schema and parses it
      *
-     * @param xml: path to an xml file
-     * @param xsd: path to an xsd file
+     * @param xml: xml file
+     * @param validator: schema validator
      * @return a dom object, generated from XML
      */
-    public static Document parse(String xml, String xsd) {
-        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Validator validator;
+    public static Document parse(File xml, Validator validator) {
         try {
-            validator = factory.newSchema(new File(xsd)).newValidator();
-        } catch (SAXException e) {
-            System.out.print("Error parsing " + xsd);
-            return null;
-        }
-
-        try {
-            validator.validate(new StreamSource(new File(xml)));
+            validator.validate(new StreamSource(xml));
             return parse(xml);
         } catch (SAXException e) {
-            System.out.print("Invalid xml file " + xml);
+            System.out.print("Invalid xml file " + xml.getName());
         } catch (IOException e) {
             System.out.print("File " + xml + " not found.");
         }
         return null;
+    }
+
+    public static Validator getValidator(String xsd) {
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Validator validator;
+        try {
+            return factory.newSchema(new File(xsd)).newValidator();
+        } catch (SAXException e) {
+            System.out.print("Error parsing " + xsd);
+            return null;
+        }
     }
 }

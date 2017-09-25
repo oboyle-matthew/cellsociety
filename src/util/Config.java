@@ -106,6 +106,9 @@ public class Config {
     private static double DEFAULT_SCREEN_WIDTH = 400.;
     private static double DEFAULT_SCREEN_HEIGHT = 400.0;
 
+    private static int DEFAULT_NUMBER_ROWS = 10;
+    private static int DEFAULT_NUMBER_COLS = 10;
+
     // Ability to add several fills in sequence
     private static Fill DEFAULT_FILL[] = {Fill.COLOR};
 
@@ -120,10 +123,10 @@ public class Config {
     public double width = DEFAULT_SCREEN_WIDTH;
     public double height = DEFAULT_SCREEN_HEIGHT;
 
-    public Type type = Type.RANDOM;
+    public int rows = DEFAULT_NUMBER_ROWS;
+    public int cols = DEFAULT_NUMBER_COLS;
 
-    public int rows;
-    public int cols;
+    public Type type = Type.RANDOM;
 
     public Config(Document xml) throws XMLParseException {
         cellTypes = new HashMap<>();
@@ -316,13 +319,17 @@ public class Config {
                 throw new XMLParseException("Weight must have an attribute cell");
             if (symbol_dom.getTextContent().length() != 1)
                 throw new XMLParseException("Cell must be a character");
-            CellType type = cellTypes.get(symbol_dom.getTextContent().charAt(0));
+
+            double ratio;
             try {
-                double ratio = Double.parseDouble(node.getTextContent());
+                ratio = Double.parseDouble(node.getTextContent());
                 counter += ratio;
-                type.setRatio(ratio);
             } catch (NumberFormatException e) {
                 throw new XMLParseException("Weight must be a double");
+            }
+            if (!symbol_dom.getTextContent().equals("0")) {
+                CellType type = cellTypes.get(symbol_dom.getTextContent().charAt(0));
+                type.setRatio(ratio);
             }
         }
 

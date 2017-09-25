@@ -208,7 +208,7 @@
                                         </xs:documentation>
                                     </xs:annotation>
                                     <xs:sequence>
-                                        <xs:element name="weight">
+                                        <xs:element name="weight" maxOccurs="unbounded">
                                             <xs:complexType>
                                                 <xs:simpleContent>
                                                     <xs:extension base="xs:float">
