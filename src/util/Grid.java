@@ -80,11 +80,11 @@ public class Grid implements Updatable<Grid.Update> {
         for (Cell cell : cells)
             cell.applyUpdates();
 
+        applyUpdates();
+
         for (int i = 0; i < grid[0].length; ++i)
             for (int j = 0; j < grid.length; ++j)
-                availability[i][j] = grid[i][j] != null;
-
-        applyUpdates();
+                availability[i][j] = grid[i][j] == null;
     }
 
     public Group getGroup() {
@@ -193,21 +193,23 @@ public class Grid implements Updatable<Grid.Update> {
         if (!inBounds(pos.x, pos.y) || grid[pos.x][pos.y] != null)
             return false;
         grid[pos.x][pos.y] = cell;
-        availability[pos.x][pos.y] = true;
+        availability[pos.x][pos.y] = false;
         return true;
     }
 
-    void clear(int i, int j) {
+    public void clear(int i, int j) {
         if (inBounds(i, j)) {
             grid[i][j] = null;
-            availability[i][j] = false;
+            availability[i][j] = true;
         }
     }
 
     void remove(Cell cell) {
         Vector2D pos = cell.getPosition();
-        if (inBounds(pos.x, pos.y))
+        if (inBounds(pos.x, pos.y)) {
             grid[pos.x][pos.y] = null;
+            availability[pos.x][pos.y] = false;
+        }
         cells.remove(cell);
         group.getChildren().remove(cell);
     }
@@ -215,9 +217,10 @@ public class Grid implements Updatable<Grid.Update> {
     void prettyPrint() {
         for (int i = 0; i < grid.length; ++i) {
             for (int j = 0; j < grid[0].length; ++j)
-                System.out.print(grid[i][j]);
+                System.out.printf("%c ", grid[i][j] == null ? '_' : grid[i][j].getType().symbol);
             System.out.println();
         }
+        System.out.println("----------------------------");
     }
 
     private boolean inBounds(int i, int j) {

@@ -4,11 +4,9 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.w3c.dom.Document;
-import util.Cell;
 import util.Config;
 import util.XMLParser;
 

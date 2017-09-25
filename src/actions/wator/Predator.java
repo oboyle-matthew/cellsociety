@@ -4,8 +4,9 @@ import util.Cell;
 import util.Grid;
 import util.Vector2D;
 
+import java.util.Comparator;
+
 public class Predator extends Actor {
-    public int priority = 1;
     @Override
     public void execute(Cell cell, Grid grid) {
         Vector2D pos = cell.getPosition();

@@ -24,6 +24,7 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
             this.x = x;
             this.y = y;
             this.status = status;
+            this.remove = remove;
         }
 
         public Update(int x, int y, double status, int priority) {
@@ -90,9 +91,7 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     public Cell(int x, int y, Grid grid, Config.CellType type) {
         this(grid, type);
         setPosition(x, y);
-
     }
-
 
     @Override
     public void add(Update update) {
