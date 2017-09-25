@@ -94,7 +94,7 @@
                                                     </xs:documentation>
                                                 </xs:annotation>
 
-                                                <xs:restriction>
+                                                <xs:restriction base="xs:string">
                                                     <xs:length fixed="true" value="1"/>
                                                 </xs:restriction>
                                             </xs:simpleType>
@@ -120,7 +120,7 @@
                                                                 </xs:appinfo>
                                                             </xs:annotation>
 
-                                                            <xs:restriction>
+                                                            <xs:restriction base="xs:string">
                                                                 <xs:enumeration value="COLOR"/>
                                                                 <xs:enumeration value="IMAGE"/>
                                                             </xs:restriction>
@@ -179,7 +179,7 @@
                                             - if grid: "grid" must be defined
                                         </xs:documentation>
                                     </xs:annotation>
-                                    <xs:restriction>
+                                    <xs:restriction base="xs:string">
                                         <xs:enumeration value="RANDOM"/>
                                         <xs:enumeration value="GRID"/>
                                     </xs:restriction>
@@ -211,15 +211,15 @@
                                         <xs:element name="weight">
                                             <xs:complexType>
                                                 <xs:simpleContent>
-                                                    <xs:restriction base="xs:float">
+                                                    <xs:extension base="xs:float">
                                                         <xs:attribute name="cell" use="required">
                                                             <xs:simpleType>
-                                                                <xs:restriction>
+                                                                <xs:restriction base="xs:string">
                                                                     <xs:length fixed="true" value="1"/>
                                                                 </xs:restriction>
                                                             </xs:simpleType>
                                                         </xs:attribute>
-                                                    </xs:restriction>
+                                                    </xs:extension>
                                                 </xs:simpleContent>
                                             </xs:complexType>
                                         </xs:element>

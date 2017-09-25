@@ -7,7 +7,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import org.w3c.dom.*;
 
-import javax.management.modelmbean.XMLParseException;
+import exceptions.XMLParseException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class Config {
             try {
                 return ActionClazz.newInstance();
             } catch (InstantiationException | IllegalAccessException e) {
-                System.err.print(e.toString());
+                System.err.println(e.toString());
                 return null;
             }
         }
@@ -47,7 +47,7 @@ public class Config {
             this.ratio = ratio;
         }
 
-        public double getRatio() {
+        double getRatio() {
             return ratio;
         }
     }
@@ -126,6 +126,7 @@ public class Config {
     public int cols;
 
     public Config(Document xml) throws XMLParseException {
+        cellTypes = new HashMap<>();
         parseTimeLine(xml);
         parseCells(xml);
         parseState(xml);
@@ -198,7 +199,7 @@ public class Config {
 
         String symbol = node.getTextContent();
         if (symbol.length() != 1)
-            throw new XMLParseException("Symbol must be length 1");
+            throw new XMLParseException("Symbol must be a character");
 
         cellType.symbol = symbol.charAt(0);
         if (cellType.symbol == '0')

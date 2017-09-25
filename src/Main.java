@@ -22,7 +22,7 @@ import util.Config;
 import util.Grid;
 import util.XMLParser;
 
-import javax.management.modelmbean.XMLParseException;
+import exceptions.XMLParseException;
 
 public class Main extends Application {
 	public static final int SEGREGATION = 0;

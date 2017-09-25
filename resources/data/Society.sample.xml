@@ -8,7 +8,7 @@
     <end-time>10000</end-time>
     <cells>
         <cell>
-            <symbol>0</symbol>
+            <symbol>1</symbol>
             <fill>
                 <type>COLOR</type>
                 <content>red</content>

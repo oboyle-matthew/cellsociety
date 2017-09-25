@@ -1,6 +1,9 @@
 import javafx.scene.Group;
 import util.Config;
 import util.Grid;
+import util.XMLParser;
+
+import exceptions.XMLParseException;
 
 /**
  * Main game class runner
@@ -8,6 +11,16 @@ import util.Grid;
 class CellSociety {
     private Config config;
     private Grid grid;
+
+    public static void main(String[] args) {
+        try {
+            Config config = new Config(XMLParser.parse("resources/data/Society.sample.xml",
+                    "resources/data/Society.xsd"));
+            new Grid(config);
+        } catch (XMLParseException e) {
+            System.out.print(e);
+        }
+    }
 
     /**
      * Creates an instance of the game

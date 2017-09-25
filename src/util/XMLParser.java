@@ -35,7 +35,6 @@ public class XMLParser {
         } catch (IOException e) {
             System.out.print("File " + xml + " not found.");
         }
-
         return dom;
     }
 
