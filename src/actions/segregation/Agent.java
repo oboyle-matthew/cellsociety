@@ -3,6 +3,8 @@ package actions.segregation;
 import actions.Action;
 import util.Cell;
 import util.Grid;
+import util.Tuple;
+import util.Vector2D;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,7 +19,7 @@ public class Agent extends Action {
         for (Cell neighbour : neighbours) {
             if (neighbour == null)
                 continue;
-            if (neighbour.getType() == cell.getType())
+            if (neighbour.getType().equals(cell.getType()))
                 same++;
             else
                 different++;
@@ -28,7 +30,10 @@ public class Agent extends Action {
             do {
                 x = random.nextInt(grid.getCols());
                 y = random.nextInt(grid.getRows());
-            } while (grid.at(x, y) != null);
+            } while (!grid.getAvailability(x, y));
+            Vector2D pos = cell.getPosition();
+            grid.setAvailability(pos, true);
+            grid.setAvailability(x, y, false);
             cell.add(new Cell.Update(x, y));
         }
     }

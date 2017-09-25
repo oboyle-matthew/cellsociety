@@ -3,13 +3,10 @@ package util;
 import interfaces.Updatable;
 import javafx.scene.Group;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.util.*;
 
 public class Grid implements Updatable<Grid.Update> {
-    public class Update {
+    public static class Update {
         int priority;
         ArrayList<Cell> newCells;
 
@@ -33,6 +30,7 @@ public class Grid implements Updatable<Grid.Update> {
     private Random random = new Random();
 
     private Cell[][] grid;
+    private boolean[][] availability;
     private ArrayList<Cell> cells;
     private PriorityQueue<Update> updates;
     private Group group;
@@ -82,6 +80,10 @@ public class Grid implements Updatable<Grid.Update> {
         for (Cell cell : cells)
             cell.applyUpdates();
 
+        for (int i = 0; i < grid[0].length; ++i)
+            for (int j = 0; j < grid.length; ++j)
+                availability[i][j] = grid[i][j] != null;
+
         applyUpdates();
     }
 
@@ -95,18 +97,42 @@ public class Grid implements Updatable<Grid.Update> {
         return null;
     }
 
+    public Cell at(Vector2D pos) {
+        if (inBounds(pos.x, pos.y))
+            return grid[pos.x][pos.y];
+        return null;
+    }
+
     public ArrayList<Cell> getNeighbours(Cell cell) {
         ArrayList<Cell> list = new ArrayList<>();
-        Tuple<Integer, Integer> pos = cell.getPosition();
-        list.add(at(pos.a - 1, pos.b - 1));
-        list.add(at(pos.a, pos.b - 1));
-        list.add(at(pos.a + 1, pos.b - 1));
-        list.add(at(pos.a + 1, pos.b));
-        list.add(at(pos.a + 1, pos.b + 1));
-        list.add(at(pos.a, pos.b + 1));
-        list.add(at(pos.a - 1, pos.b + 1));
-        list.add(at(pos.a - 1, pos.b));
+        Vector2D pos = cell.getPosition();
+        list.add(at(pos.x - 1, pos.y - 1));
+        list.add(at(pos.x, pos.y - 1));
+        list.add(at(pos.x + 1, pos.y - 1));
+        list.add(at(pos.x + 1, pos.y));
+        list.add(at(pos.x + 1, pos.y + 1));
+        list.add(at(pos.x, pos.y + 1));
+        list.add(at(pos.x - 1, pos.y + 1));
+        list.add(at(pos.x - 1, pos.y));
         return list;
+    }
+
+    public boolean getAvailability(int i, int j) {
+        return inBounds(i, j) && availability[i][j];
+    }
+
+    public void setAvailability(int i, int j, boolean available) {
+        if (inBounds(i, j))
+            availability[i][j] = available;
+    }
+
+    public boolean getAvailability(Vector2D pos) {
+        return inBounds(pos.x, pos.y) && availability[pos.x][pos.y];
+    }
+
+    public void setAvailability(Vector2D pos, boolean available) {
+        if (inBounds(pos.x, pos.y))
+            availability[pos.x][pos.y] = available;
     }
 
     public int getRows() {
@@ -143,6 +169,7 @@ public class Grid implements Updatable<Grid.Update> {
 
     private void addFromDistribution(Config config) {
         grid = new Cell[rows][cols];
+        availability = new boolean[rows][cols];
         int total = cols * rows;
 
         for (Config.CellType type : config.getCellTypes().values()) {
@@ -154,6 +181,7 @@ public class Grid implements Updatable<Grid.Update> {
 
     private void addFromGrid(Config config) {
         grid = new Cell[rows][cols];
+        availability = new boolean[rows][cols];
         Config.CellType[][] cellTypes = config.getGrid();
         for (int i = 0; i < cellTypes.length; ++i)
             for (int j = 0; j < cellTypes[0].length; ++j)
@@ -161,16 +189,27 @@ public class Grid implements Updatable<Grid.Update> {
     }
 
     boolean move(Cell cell) {
-        Tuple<Integer, Integer> pos = cell.getPosition();
-        if (!inBounds(pos.a, pos.b) || grid[pos.a][pos.b] != null)
+        Vector2D pos = cell.getPosition();
+        if (!inBounds(pos.x, pos.y) || grid[pos.x][pos.y] != null)
             return false;
-        grid[pos.a][pos.b] = cell;
+        grid[pos.x][pos.y] = cell;
+        availability[pos.x][pos.y] = true;
         return true;
     }
 
     void clear(int i, int j) {
-        if (inBounds(i, j))
+        if (inBounds(i, j)) {
             grid[i][j] = null;
+            availability[i][j] = false;
+        }
+    }
+
+    void remove(Cell cell) {
+        Vector2D pos = cell.getPosition();
+        if (inBounds(pos.x, pos.y))
+            grid[pos.x][pos.y] = null;
+        cells.remove(cell);
+        group.getChildren().remove(cell);
     }
 
     void prettyPrint() {

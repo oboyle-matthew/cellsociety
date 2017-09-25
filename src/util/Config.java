@@ -28,11 +28,15 @@ public class Config {
         GRID, RANDOM
     }
 
-    class CellType {
+    public class CellType {
         ArrayList<FillType> fills;
         Class<? extends Action> ActionClazz;
         Character symbol;
         double ratio;
+
+        public boolean equals(CellType other) {
+            return this.symbol == other.symbol;
+        }
 
         Action getAction() {
             try {
@@ -206,7 +210,7 @@ public class Config {
 
         cellType.symbol = symbol.charAt(0);
         if (cellType.symbol == '0')
-            throw new XMLParseException("Symbol 0 is reserved for empty space");
+            throw new XMLParseException("Symbol 0 is getAvailability for empty space");
 
         if (cellTypes.containsKey(cellType.symbol))
             throw new XMLParseException("Symbol must be unique");

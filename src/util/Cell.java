@@ -2,11 +2,11 @@ package util;
 
 import actions.Action;
 import interfaces.Updatable;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Vector;
 
 /**
  * Class that implements cell functionality
@@ -16,25 +16,42 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         int priority;
         int x;
         int y;
-        int status;
+        double status;
+        boolean remove;
 
-        public Update(int x, int y, int status, int priority) {
+        public Update(int x, int y, double status, int priority, boolean remove) {
             this.priority = priority;
             this.x = x;
             this.y = y;
             this.status = status;
         }
 
+        public Update(int x, int y, double status, int priority) {
+            this(x, y, status, priority, false);
+        }
+
         public Update(int x, int y, int priority) {
             this(x, y, -1, priority);
         }
 
-        public Update(int x, int y) {
-            this(x, y, -1);
+        public Update(int x, int y, double status) {
+            this(x, y, status, -1);
         }
 
-        public Update(int status) {
+        public Update(int x, int y) {
+            this(x, y, -1, -1);
+        }
+
+        public Update(Vector2D pos) {
+            this(pos.x, pos.y);
+        }
+
+        public Update(double status) {
             this(-1, -1, status, -1);
+        }
+
+        public Update(boolean remove) {
+            this.remove = remove;
         }
     }
 
@@ -47,29 +64,35 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
 
     private int x;
     private int y;
-    private int status;
+    // TODO create abstract Status class to describe status
+    private double status;
     private Config.CellType type;
 
     private Grid grid;
     private Action action;
     private PriorityQueue<Update> updates;
-    private Tuple<Integer, Integer> position;
+    private Vector2D position;
 
 
-    /**
-     * Creates an instance of a cell
-     */
-    public Cell(int x, int y, Grid grid, Config.CellType type) {
+    public Cell(Grid grid, Config.CellType type) {
         super(grid.getWidth() / grid.getCols(), grid.getHeight() / grid.getRows());
         this.action = type.getAction();
         for (Config.FillType fillType : type.fills)
             setFill(fillType.paint);
         this.grid = grid;
         this.type = type;
-        setPosition(x, y);
-
         updates = new PriorityQueue<>(new UpdatePriorityComparator());
     }
+
+    /**
+     * Creates an instance of a cell
+     */
+    public Cell(int x, int y, Grid grid, Config.CellType type) {
+        this(grid, type);
+        setPosition(x, y);
+
+    }
+
 
     @Override
     public void add(Update update) {
@@ -79,6 +102,10 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     @Override
     public void applyUpdates() {
         for (Update update : updates) {
+            if (update.remove) {
+                grid.remove(this);
+                return;
+            }
             setPosition(update.x, update.y);
             grid.move(this);
             status = update.status;
@@ -86,15 +113,19 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         updates.clear();
     }
 
-    public int getStatus() {
+    public double getStatus() {
         return status;
     }
 
-    public char getType() {
-        return type.symbol;
+    public Config.CellType getType() {
+        return type;
     }
 
-    public Tuple<Integer, Integer> getPosition() {
+    public boolean sameType(Cell other) {
+        return type.symbol.equals(other.getType().symbol);
+    }
+
+    public Vector2D getPosition() {
         return position;
     }
 
@@ -102,16 +133,16 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         return "[" + x + ", " + y + "]";
     }
 
-    void execute(Cell cell, Grid grid) {
-        action.execute(cell, grid);
-    }
-
-    private void setPosition(int x, int y) {
+    void setPosition(int x, int y) {
         grid.clear(this.x, this.y);
-        position = new Tuple<>(x, y);
+        position = new Vector2D(x, y);
         this.x = x == -1 ? this.x : x;
         this.y = y == -1 ? this.y : y;
         setX(this.x * getWidth());
         setY(this.y * getHeight());
+    }
+
+    void execute(Cell cell, Grid grid) {
+        action.execute(cell, grid);
     }
 }
