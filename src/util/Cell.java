@@ -48,6 +48,7 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     private int x;
     private int y;
     private int status;
+    private Config.CellType type;
 
     private Grid grid;
     private Action action;
@@ -61,15 +62,13 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     public Cell(int x, int y, Grid grid, Config.CellType type) {
         super(grid.getWidth() / grid.getCols(), grid.getHeight() / grid.getRows());
         this.action = type.getAction();
-        this.setFill(Paint.valueOf("green"));
+        for (Config.FillType fillType : type.fills)
+            setFill(fillType.paint);
         this.grid = grid;
+        this.type = type;
         setPosition(x, y);
 
         updates = new PriorityQueue<>(new UpdatePriorityComparator());
-    }
-
-    public void execute(Cell cell, Grid grid) {
-        action.execute(cell, grid);
     }
 
     @Override
@@ -87,6 +86,14 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         updates.clear();
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public char getType() {
+        return type.symbol;
+    }
+
     public Tuple<Integer, Integer> getPosition() {
         return position;
     }
@@ -95,7 +102,12 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
         return "[" + x + ", " + y + "]";
     }
 
+    void execute(Cell cell, Grid grid) {
+        action.execute(cell, grid);
+    }
+
     private void setPosition(int x, int y) {
+        grid.clear(this.x, this.y);
         position = new Tuple<>(x, y);
         this.x = x == -1 ? this.x : x;
         this.y = y == -1 ? this.y : y;

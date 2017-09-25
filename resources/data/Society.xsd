@@ -186,7 +186,7 @@
                                 </xs:simpleType>
                             </xs:element>
 
-                            <xs:element name="grid" type="xs:string">
+                            <xs:element name="grid" type="xs:string" minOccurs="0">
                                 <xs:annotation>
                                     <xs:appinfo>Grid</xs:appinfo>
                                     <xs:documentation>
@@ -195,7 +195,7 @@
                                 </xs:annotation>
                             </xs:element>
 
-                            <xs:element name="distribution">
+                            <xs:element name="distribution" minOccurs="0">
                                 <xs:complexType>
                                     <xs:annotation>
                                         <xs:appinfo>Cell Distribution</xs:appinfo>

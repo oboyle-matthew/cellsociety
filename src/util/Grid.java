@@ -109,11 +109,11 @@ public class Grid implements Updatable<Grid.Update> {
         return list;
     }
 
-    int getRows() {
+    public int getRows() {
         return rows;
     }
 
-    int getCols() {
+    public int getCols() {
         return cols;
     }
 
@@ -162,10 +162,15 @@ public class Grid implements Updatable<Grid.Update> {
 
     boolean move(Cell cell) {
         Tuple<Integer, Integer> pos = cell.getPosition();
-        if (inBounds(pos.a, pos.b) || grid[pos.a][pos.b] != null)
+        if (!inBounds(pos.a, pos.b) || grid[pos.a][pos.b] != null)
             return false;
         grid[pos.a][pos.b] = cell;
         return true;
+    }
+
+    void clear(int i, int j) {
+        if (inBounds(i, j))
+            grid[i][j] = null;
     }
 
     void prettyPrint() {
@@ -177,6 +182,6 @@ public class Grid implements Updatable<Grid.Update> {
     }
 
     private boolean inBounds(int i, int j) {
-        return i < 0 || j < 0 || i >= cols || j >= rows;
+        return i >= 0 && j >= 0 && i < cols && j < rows;
     }
 }

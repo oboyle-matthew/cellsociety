@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.HashMap;
 
 public class Main extends Application {
-    private static final double FPS = 60.;
+    private static final double FPS = 10.;
     private static String DATA_DIRECTORY = "resources/data/";
     private static String XML_SCHEMA = DATA_DIRECTORY + "Society.xsd";
 
@@ -38,7 +38,7 @@ public class Main extends Application {
         stage = primaryStage;
         try {
             config = new Config(
-                XMLParser.parse(new File(DATA_DIRECTORY + "Society.sample.xml"),
+                XMLParser.parse(new File(DATA_DIRECTORY + "Segregation.xml"),
                         XMLParser.getValidator(XML_SCHEMA)));
             cellSociety = new CellSociety(config);
         } catch (XMLParseException e) {
@@ -52,8 +52,8 @@ public class Main extends Application {
     }
 
     private void setAnimation() {
-        KeyFrame frame = new KeyFrame(Duration.seconds(2),
-                e -> step(2000));
+        KeyFrame frame = new KeyFrame(Duration.seconds(1 / FPS),
+                e -> step(1 / FPS));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
