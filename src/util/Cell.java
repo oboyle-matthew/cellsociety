@@ -121,7 +121,7 @@ public class Cell extends Rectangle implements Updatable<Cell.Update> {
     }
 
     public boolean sameType(Cell other) {
-        return type.symbol.equals(other.getType().symbol);
+        return other == null || type.symbol.equals(other.getType().symbol);
     }
 
     public Vector2D getPosition() {

@@ -74,11 +74,10 @@ public class Grid implements Updatable<Grid.Update> {
     }
 
     public void next() {
-        for (Cell cell : cells)
-            cell.execute(cell, this);
+        for (Cell cell : cells) cell.execute(cell, this);
 
-        for (Cell cell : cells)
-            cell.applyUpdates();
+        Cell[] _cells = cells.toArray(new Cell[cells.size()]);
+        for (Cell cell : _cells) cell.applyUpdates();
 
         applyUpdates();
 
@@ -98,9 +97,7 @@ public class Grid implements Updatable<Grid.Update> {
     }
 
     public Cell at(Vector2D pos) {
-        if (inBounds(pos.x, pos.y))
-            return grid[pos.x][pos.y];
-        return null;
+        return at(pos.x, pos.y);
     }
 
     public ArrayList<Cell> getNeighbours(Cell cell) {

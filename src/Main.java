@@ -36,7 +36,7 @@ public class Main extends Application {
         stage = primaryStage;
         try {
             config = new Config(
-                XMLParser.parse(new File(DATA_DIRECTORY + "Segregation.xml"),
+                XMLParser.parse(new File(DATA_DIRECTORY + "Wator.xml"),
                         XMLParser.getValidator(XML_SCHEMA)));
             cellSociety = new CellSociety(config);
         } catch (XMLParseException e) {

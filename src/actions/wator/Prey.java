@@ -2,9 +2,9 @@ package actions.wator;
 
 import util.Cell;
 import util.Grid;
+import util.Vector2D;
 
 import java.util.ArrayList;
-import util.Vector2D;
 
 public class Prey extends Actor {
     public static final int priority = 0;
@@ -12,6 +12,7 @@ public class Prey extends Actor {
 
     @Override
     public void execute(Cell cell, Grid grid) {
+        local = 0;
         Vector2D pos = cell.getPosition();
         Vector2D offset = getOffset(cell, grid);
         grid.setAvailability(pos, true);
@@ -31,6 +32,9 @@ public class Prey extends Actor {
         Vector2D offset;
         do {
             offset = randomNeighbour(cell, grid);
+            local = local | (1 << ((1 + offset.y) * 3 + 1 + offset.x));
+            if (local == 0x1ff)
+                break;
         } while (!grid.getAvailability(pos.add(offset)));
         return offset;
     }

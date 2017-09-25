@@ -110,8 +110,8 @@ public class Config {
     private static double DEFAULT_SCREEN_WIDTH = 400.;
     private static double DEFAULT_SCREEN_HEIGHT = 400.0;
 
-    private static int DEFAULT_NUMBER_ROWS = 10;
-    private static int DEFAULT_NUMBER_COLS = 10;
+    private static int DEFAULT_NUMBER_ROWS = 100;
+    private static int DEFAULT_NUMBER_COLS = 100;
 
     // Ability to add several fills in sequence
     private static Fill DEFAULT_FILL[] = {Fill.COLOR};
